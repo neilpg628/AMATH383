@@ -1,0 +1,35 @@
+\textbf{Terms}
+\varrho - radius of a ball
+z - center of a sphere
+\textbf{z} - set of balls, or state in $\mathbb{R}^m$
+$\zeta_{ij}$ - signed distance between centers of two intersecting spheres
+\sigma - fraction of solvent-exposed surface for two intersecting spheres
+\beta - fraction of solvent-exposet surface for three intersecting spheres
+\alpha - atomic solvation parameter
+B - Ball, or atom. Example: $B_i$ is a set of of balls with radius \varrho_i and center $z_i$, where $0<=i<=n-1$
+S - Sphere, where $S_i$ is the sphere that bounds $B_i$.
+f - map taking \textbf{z} from $\mathbb{R}^m$ to $\mathbb{R}$
+F - space filling diagrram
+$\pi_i(x)$ - The power distance of a random point x from $S_i$, which depends on the radius of $B_i$.
+$P_i$ - The power cells of $S_i$ which minimizes the power discance between two or more spheres.
+K - dual complex of Delaunay Triangulation. Consists of all power cells with non-empty intersection.
+\textbf{u} - gradient vector
+\textbf{t} - variable velocity vector
+C - Cap, i.e. where $C_{ij}$ contains all the points in the intersection of $B_i$ and $S_j$
+$DA_\textbf{z}$ - Weighted area derivative at \textbf{z}, which has a gradient vector \textbf{a} and variable vector \textbf{t}
+$DE_\textbf{z}$ - Weighted area derivative at \textbf{z}, which has a gradient vector \textbf{e} and variable vector \textbf{t}
+
+\textbf{Works Cited}
+Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
+
+Edelsbrunner, H. The Union of Balls and Its Dual Shape. Discrete \& Computational Geometry. 13 (1995), 415-440.
+
+Fischer, Kaspar. Introduction to Alpha Shapes. Stanford University, lecture notes, 2011.
+
+Richmond, Timothy J. Solvent Accessible Surface Area and Excluded Volume in Proteins. J. Mol. Biol. 178 (1984), 63-89.
+
+Rotskoff, Grant. The Gauss-Bonnet Theorem. University of Chicago REU, paper, 2010
+
+Schnell, Christian. The Gauss-Bonnet Theorem. talk at Columbus, 2004.
+
+DeCoste, Donald J., Zumdahl, Steven S. General Chemistry 142 University of Washington 7th Edition, Boston, Cengage Learning, 2015.
