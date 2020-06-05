@@ -153,6 +153,7 @@ Using the dual complex, the authors go on to specify the equation for $\sigma_{i
 
 This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of F.
 
+
 $\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs by the area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan(1986). So for just one ball $B_i$:
 \begin{align*}
 &A = 4\pi\sum \varrho_i^2\sigma_i
