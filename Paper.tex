@@ -4,7 +4,7 @@
 \usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \graphicspath{{./}}
-\usepackage[nottoc]{tocbibind}
+
 \newcommand{\R}{\mathbb{R}}
 
 \title{Calculating the Solvent Exposed Surface Area of Proteins with Intersecting Spheres} % Feel free to change
@@ -23,8 +23,8 @@ Calculating the solvent-exposed surface area (SASA) of large biomolecules is an 
 \section{Previous Work}
 Accurately and quickly calculating the SASA of proteins has been a problem that people have been trying to solve since the 1980's. One reason for this is the fact that the effective potential for solvation can be written $W=W_{elec}+W_{np}$, where $W_{elec}$ represents the electrostatic contribution and $W_{np}$ represents the nonpolar contribution to this potential. The second term depends heavily on the SASA value of the polar atoms in the molecule, as polar atoms with a low SASA value (buried polars) should to make hydrogen bonds to preserve the protein's structure. One of the earliest ways of computing this value was by Richmond (1984). His method involved modeling atoms as spheres and computing SASA as an application of the Gauss-Bonnet Theorem. This method was the basis for many future SASA calculators that optimized for attributes like speed or numerical stability. Other methods didn't focus as much on exact values in the interest of speed. The Shrake-Rupley algorithm (optimized by Legrand and Merz as discussed below), breaks up the spherical surface of each atom into a set of dots, and uses the fraction of dots that are exposed as a proxy for the exposed surface area. This is the default SASA calculator in Rosetta, a software package developed at the UW that allows for the computational analysis and design of protein structures. 
 \subsection{Geometrical Representation of Atoms}
-While atoms are comprised of protons, neutrons, and electrons, electrons are what give them their properties. Electrons make up the volume of an atom, and are more likely to be found closer to the nucleus than away. Because we don’t know for certain where electrons are in an atom, they can be represented by orbitals, or positions that give the probability of electrons being there. Orbitals can take on different shapes, generally resembling some type of dumbbell, but when these orbitals come together, they form a roughly spherical shape. This is why atoms are often modeled as spherical objects. (citation)
-\subsection{The Shrake-Rupley Algorithm}
+While atoms are comprised of protons, neutrons, and electrons, electrons are what give them their properties. Electrons make up the volume of an atom, and are more likely to be found closer to the nucleus than away. Because we don’t know for certain where electrons are in an atom, they can be represented by orbitals, or positions that give the probability of electrons being there. Orbitals can take on different shapes, generally resembling some type of dumbbell, but when these orbitals come together, they form a roughly spherical shape (DeCoste, Zumdahl p.551-557). This is why atoms are often mathematically modeled as spherical objects.
+\subsection{Shrake-Rupley Algorithm}
 The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. Prior exact algorithms could also fail if the protein surface was not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED and not subject to the surface continuity problems that can trouble the analytic calculator. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The molecular surface area can be then written as integral of didio $\Psi\Phi\Xi\alpha^2$
 \begin{equation}
 A_i=4\pi r_i^2\frac{l_{exposed}}{l_{total}} \\
@@ -49,7 +49,7 @@ In a previous paper written by Richmond (1984), a different strategy is used to 
 \end{equation}
 Here $\chi$ is the Euler Characteristic of $M$, and $K$ and $k_g$ are the Gaussian and geodesic curvatures of the manifold and the boundary respectively. For polygons, $\chi=V-E+F=1$. 
 
-The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\varrho_i^2}$. We can divide this SASA into many polygons bounded by the circles of intersection with neighboring spheres (See Figure 1). If $M$ is one particular polygon, we can write 
+The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\varrho_i^2}$. We can divide this SASA into many polygons bounded by the circles of intersection with neighboring spheres (See Figure). If $M$ is one particular region of that SASA, we can write 
 \begin{align}\nonumber
 &\frac{1}{\varrho_i^2}\int_M dA + \int_{\partial M} k_g ds= 2\pi \\
 &\implies A=\varrho_i^2\left(2\pi-\int_{\partial M} k_g ds\right)
@@ -74,7 +74,7 @@ P_i=\{x\in\R^3\mid\pi_i(x)\leq\pi_j(x),\forall j\}
 Each $P_i$ is convex, and together they cover all $\R^3$ without overlap. The dual of this power diagram is a weighted Delaunay Triangulation of $S$ into a set of simplices. We can compute the surface area of these balls using Delaunay triangulation, which will help us in the later sections. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know what the vertices of each triangle represent. 
 
 \begin{comment}
-To draw the Delaunay triangles, the centers of the balls are taken to be the vertices of the triangles. If any two circles have adjacent power cells, an edge will be drawn between them. Every three power cells with a common edge will make up a triangle and a tetrahedron will comprise four power shells with a common vertex.
+To draw the Delaunay triangles, the centers of the balls are taken to be the vertices of the triangles. If any two circles have adjacent power cells, an edge will be drawn between them. Every three power cells with a common edge will make up a triangle and a tetrahedron will comprise four power shells with a common vertex. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know what the vertices of each triangle represent.
 \end{comment}
 
 \begin{comment}
@@ -103,14 +103,14 @@ Consider a set of balls $B_i$ defined by a center $z_i$ and a fixed radius $\var
 
 \begin{figure}[h!]
 \caption{$B_1$ where $n = 2$ is bound by a solvent sphere. The radius of the solvent is the distance between the edge of the ball and the sphere.}
-\centerline{\includegraphics[width=3in]{Figure3}}
+\centerline{\includegraphics[width=3in]{Figure8}}
 \end{figure}
 
-You can imagine that given a collection of atoms, there will be many balls in one space with their spheres overlapping (Figure 2).The area derivative equations are describes for groups of two or three overlapping spheres, which can be applied to larger systems. Using the Power Method method described above, we can use Delaunay Triangulations to assist with their calculations.
+Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$. We will describe area derivative equations for groups of two or three overlapping spheres, which can easily be applied to larger systems. Using the power method described above, we will show how the authors use Delaunay Triangulations to assist with the calculations. Figure 2 shows the simplest example.
 
 \begin{figure}[h!]
 \caption{Three balls in space bounded by three different spheres. Their centers are used for Delaunay Triangulation.}
-\centerline{\includegraphics[width=3in]{Figure8}}
+\centerline{\includegraphics[width=3in]{Figure2}}
 \end{figure}
 
 
@@ -118,56 +118,63 @@ You can imagine that given a collection of atoms, there will be many balls in on
 
 \begin{figure}[h!]
 \caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$\lbrack1\rbrack$}
-\centerline{\includegraphics[width=3in]{Figure2}}
-\end{figure}
-
-
-In order to get to the derivation, we must define some additional terms. After constructing Delaunay Triangles from a set of molecules, they note two important terms , "star" and "link", that are useful for defining area equations. Each Delaunay triangle is a simplex, where simplex is the higher dimensional analogue of a triangle or tetrahedron. They define K as a dual complex, or subcomplex of the alpha shape.
-
-\begin{figure}[h!]
-\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.$\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure4}}
 \end{figure}
 
-K is made up of multiple simplices. The “star” of K would then just be a set of triangles who share a vertex and outside boundary. They also define the “link” of K to be all of the vertices and edges in the star.
+
+In order to get derive the SASA equations, we must define some additional terms. After constructing Delaunay Triangles from a set of molecules, they note two important terms , "star" and "link", that are useful for defining area equations. Each of the Delaunay triangles as a simplex, where simplex is basically another word for triangle or tetrahedron. They define K as a dual complex, or subcomplex of the alpha shape.
 
 \begin{figure}[h!]
-\caption{The star of K and link of the star are shown.$\lbrack1\rbrack$}
+\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.$\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure9}}
 \end{figure}
 
-Knowing how the star and link of a subcomplex K are defined will help find the solvent-exposed surface area.
-The space-filling diagram, or collection of spheres, is represented by $F$. $F_i$, for instance, consists of all the points in $B_i$. $\sigma$ represents the fraction of a sphere on a boundary of $F$. We care about the boundary of $F$ because that contributes to the exposed surface area, unlike the intersecting portion of the sphere. So for two intersecting balls, our equation comes out to:
+As can be seen by the figure, K is made up of multiple simplices. The “star” of K is a set of triangles who share a vertex and outside boundary. The “link” of K, then, is all of the vertices and edges in the star.
+
+\begin{figure}[h!]
+\caption{The star of K and link of the star are shown.$\lbrack1\rbrack$}
+\centerline{\includegraphics[width=3in]{Figure5}}
+\end{figure}
+
+Knowing how the star and link of a subcomplex K are defined is useful when deriving the SASA equations.
+The collection of spheres, or the entire molecule, is known as a space-filling diagram F. $F_i$, for instance, consists of all the atoms in $S_i$. $\sigma$ represents the fraction of a sphere on the boundary of F. We only really care about the boundary of F because that is what contributes to the exposed surface area that will be interacting with the solvent. As mentioned earlier, a molecule can contain multiple spheres that overlap. For two intesecting spheres $S_i$ and $S_j$ that share a circle $S_{ij}$ $\sigma$ comes out to:
 
 \begin{equation*}
-\sigma_{ij} = \frac{length(P_i \cap P_j \cap bd F}{length(S_{ij})}
+\sigma_{ij} = \frac{length(P_i \cap P_j \cap bd F)}{length(S_{ij})}
 \end{equation*}
 
-This means that for two intersecting balls i and j,$\sigma_{ij}$ will be the fraction of the exposed (hence bd F) surface that's on the power cells of each of the balls. 
-Using the dual complex, we can specify the following equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later.
-\begin{equation}
-\sigma_{ij} = \frac{1 - (\sum_{k}length(S^k_{ij}) - \sum_{k,l} length(S_{ij}^2 \cap S^l_{ij}))}{2\pi\varrho_{ij}}
-\end{equation}
-
-They derive this equation by looking at Edelsbrunner's (1995) paper. They consider two spheres $S_i$ and $S_j$, which intersect at a circle. $S^k_{ij}$ and $S^l_{ij}$ are two other spheres that minimize the power distance to the circle of intersection. Subtracting the term on the right from 1 gives the fraction of exposed surface area.
-
-$\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4pi\varrho^2$. However, we are only concerned with exposed area. This means that we need to multiply by $\sigma$, the fraction of the ball that’s exposed, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs by the area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan(1986). So for just one ball $B_i$:
+bd F means the boundary of F. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
+Using the dual complex, the authors go on to specify the equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later:
+\begin{comment}
 \begin{align*}
-&A = 4\pi\sum\varrho_i^2\sigma_i \\
-&W = 4\pi\sum\alpha_i\varrho_i^2\sigma_i
+\sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})-\sum_{k,l}length(S_^k{ij}\capS^l_{ij})}{2\pi\varrho_{ij}}
+\end{align*}
+\end{comment}
+
+This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of F.
+
+$\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs by the area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan(1986). So for just one ball $B_i$:
+\begin{align*}
+&A = 4\pi\sum \varrho_i^2\sigma_i
+&E = 4\pi\sum\alpha_i\varrho_i^2\sigma_i
 \end{align*}
 
-Another term, $\beta_{ijk}$, is also used, which is useful when considering the case of three intersecting balls. When three spheres intersect at two points, there is a line segment passing through them that is represented as $B_{ijk}$. Just like for $\sigma_{ij},\beta_{ijk}$ represents the fraction of points that belong to the edge of F, the space-filling diagram and 
-\begin{equation}
+Another term, $\beta_{ijk}$, is also used, which is useful when considering the case of three intersecting balls. When three spheres intersect at two points, there is a line segment passing through them that is represented as $B_{ijk}$. Just like for $\sigma_{ij}$, $\beta_{ijk}$ represents the fraction of points that belong to the edge of F for these three spheres.
+\begin{equation*}
 \beta_{ijk} = \frac{length(P_i \cap P_j \cap P_k \cap bd F)}{length(B_{ijk})}
-\end{equation}
+\end{equation*}
 
-The equation above shows that $\beta_{ijk}$ represents the fraction of the exposed points that are on the intersection of the three spheres. A similar expression to $\sigma_{ij}$ is derived for $\beta_{ijk}$, using $B^l_{ijk}$, the portion of the line segment on a fourth sphere (l). By subtracting the right term from 1, the solvent exposed area for three intersecting spheres is found.
+The equation above shows that $\beta_{ijk}$ represents the fraction of the exposed points that are on the intersection of the three spheres. A similar expression to $\sigma_{ij}$ is derived for $\beta_{ijk}$, using $B^l_{ijk}$, the portion of the line segment $B_{ijk}$ on a fourth sphere $S_l$. 
+\begin{equation*}
+\beta_{ijk} = 1 - \frac{\sum_{l}length(B^l_{ijk})}{length(B_{ijk})}
+\end{equation*}
+In the right term, the sum adds up the length of the line segment that comes in contact with $S_l$ and divides that by the entire length of $B_{ijk}$, giving the fraction of F that is unexposed. By subtracting this term from 1, the fraction of solvent exposed area for three intersecting spheres is found.
 
-We can think of the sphere as representing how much of the solvent can interact with the atom. The state z of each ball defines a center and a radius. This paper considers that the weighted (E) and unweighted (A) areas are transformations from the space containing \textbf{z} $(R^3n)$ to R. Their derivatives at a particular \textbf{z} are linear maps. In other words, the areas are represented by the map f and their derivatives the derivative of f at \textbf{z}.
+We can think of the sphere as representing how much of the solvent can interact with the atom. The state \textbf{z} of each ball defines a center and a radius. As stated before, this paper considers that the weighted (E) and unweighted (A) areas are transformations from the space containing z ($\R^{3n}$) to $\R$. Their derivatives at a particular \textbf{z} are linear maps. In other words, the areas are represented by the map f and their derivatives the derivative of f at \textbf{z}. Both unweighted and weighted area derivatives are comprised of two motions, direction preserving and distance preserving, which can be derived separately and summed to form the theorems.
+ 
 \subsection{Direction Preserving Motion} 
-In this type of motion, it is assumed that two spheres $S_i$ and $S_j$ bounded with a non-empty intersection are moving on the line passing through their centers.
-Let’s again consider F to be the space-filling diagram of each sphere. $F_i$ is then the union of $B_i$ and  $F_j$ is the union of $B_j$. We can assume the spheres of both atoms intersect each other (Figure 3) So, we can say that F contains the points that are the union of $B_i$ and $B_j$, or all the points in balls $i$ and $j$. So we are assuming the atoms are intersecting each other.
+In this type of motion, it is assumed that two spheres $S_i$ and $S_j$ bounded with a non-empty intersection are moving straight on the line passing through their centers.
+In this case, the space-filling diagram F consits of all the atoms in $S_i$ and $S_j$, or $F = B_i \cup B_j$.
 
 \begin{figure}[h!]
 \caption{Two intersecting spheres $S_i$ and $S_j.\lbrack1\rbrack$}
@@ -175,14 +182,18 @@ Let’s again consider F to be the space-filling diagram of each sphere. $F_i$ i
 \end{figure}
 
 
-Let's show how $\zeta_i^2 - \zeta_j^2 = \varrho_i^2-\varrho_j^2$ and then show how $(\zeta_i)^2 (\zeta_j)^2 $ simplifies to $\zeta_{ij}*(\zeta_i - \zeta_j)$. First assume the following equations for the spheres:
+A term $\zeta_ij$ is equal to  $\zeta_i$+$\zeta_j$, or the norm of the distance between the centers of the two spheres $z_i$ and $z_j$. $\zeta$ in this case represents the signed distance of each sphere center to the circle of intersection. Each of the sphere's own radi are defined to be $\rho_i$ and $\rho_j$. First, we can assume coordiates for the spheres based on what we know about their centers:
+(0,0,$z_i$)  (0,0,$z_j$)
 
+
+The general equation of a sphere ($x^2 + y^2 +z^2 = r^2$) can be used to construct equations for $S_i$ and $S_j$:
 \begin{align*}
 &x^2 + y^2 +(z-z_i)^2 = \zeta_i^2 \\
 &x^2 + y^2 +(z-z_j)^2 = \zeta_j^2 \\
-&\implies \zeta_i^2-\zeta_j^2 =(z-z_i)^2-(z-z_j)^2=-2z_i +2z_j +z_i^2 - z_j^2\\
+&\zeta_i^2-\zeta_j^2 =(z-z_i)^2-(z-z_j)^2=-2z_i +2z_j +z_i^2 - z_j^2\\
+& \implies -2z_i +2z_j +z_i^2 - z_j^2 = (\zeta_i)^2-(\zeta_j)^2\\
 \end{align*}
-Using this logic, we can find the same equation holds true if we consider the atoms (balls), as they have the same centers as the spheres. So:
+Using this logic, we can find the same equation holds true if we consider the set of balls for each sphere (assuming they have they same radi), as they have the same centers as the spheres. So:
 \begin{align*}
 &-2z_i +2z_j +z_i^2 - z_j^2 = \varrho_i^2-\varrho_j^2 \\
 &\zeta_i^2-\zeta_j^2 = \varrho_i^2-\varrho_j^2\\
@@ -197,39 +208,45 @@ Using this logic, we can find the same equation holds true if we consider the at
 &\zeta_j = \frac{1}{2}\left(\zeta_{ij}+\frac{\varrho_j^2-\varrho_i^2}{\zeta_{ij}}\right)
 \end{align*}
 
-Now we can find the area of both spheres. We know that $A = 4\pi r^2$. For two spheres $A = A_i + A_j$. Recall the area equation stated in the model. For two balls we can say: $A = 4\pi\varrho^2\sum{\sigma_i} + 4\pi\varrho^2\sum{\sigma_j}$. After plugging in $\sigma$ and simplifying the area equation:
+Now we can find the area of both spheres. For two spheres, it makes sense that $A = A_i + A_j$. Recall the area equation stated in section 3.2. For two balls we can say: $A = 4\pi\varrho^2\sum{\sigma_i} + 4\pi\varrho^2\sum{\sigma_j}$. We have already shown $\sigma$, so we can plug it in and simplify the area equation:
 \begin{align*}
 &4\pi\varrho^2\frac{\varrho_i + \zeta_i}{2\varrho_i} + 4\pi\varrho_j^2\frac{\varrho_j + \zeta_j}{2\varrho_j} \\
 &\text{After a few algebraic simplifications:} \\
 &2\pi\varrho_i^2 +2\pi\varrho_j^2 +\pi\varrho_i\left(\zeta_{ij} + \frac{\varrho_i^2 - \varrho_j^2}{\zeta_{ij}}\right)+\pi\varrho_j\left(\zeta_{ij} + \frac{\varrho_j^2 - \varrho_i^2}{\zeta_{ij}}\right) \\
-&A  = 2\pi(\varrho_i^2 + \varrho_j^2) + \pi(\varrho_i+\varrho_j)\left[\zeta_{ij}+\frac{(\varrho_i-\varrho_j)^2}{\zeta_{ij}}\right] \\
-&\text{Then we find the derivative of the area with respect to $\zeta_{ij}$} \\
+&A  = 2\pi*(\varrho_i^2 + \varrho_j^2) + \pi(\varrho_i+\varrho_j)\left[\zeta_{ij}+\frac{(\varrho_i-\varrho_j)^2}{\zeta_{ij}}\right] \\
+&\text{Finally, we can find the derivative of the area with respect to $\zeta_{ij}$} \\
 &\frac{dA}{d\zeta_{ij}} = \pi(\varrho_i+\varrho_j)\left[1-\frac{(\varrho_i - \varrho_j)^2}{\zeta_{ij}^2}\right] \\
 &\text{This is term they get after some simplification.}
 \end{align*}
 
 \subsection{Distance Preserving Motion}
-In distance preserving motion, one sphere rotates about another.
-Imagine three spheres interesting at two points. This time, $F$ is going to include all the points contained in all three balls. If the spheres intersect at two points then one sphere contains both of them. Next, consider the caps of the spheres i and k when finding the exposed surface area ($C_{ij}$ and $C_{kj}$). The caps intersect and we can find the parameters for these similar to how we found the formulas for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle.
+In distance preserving motion, one sphere rotates about the other. Imagine three spheres interesting at two points, p and q. This time, F is going to include all the points contained in all three spheres. It is assumer that if the spheres intersect at two points then one sphere contains the other two. In this case, it is $S_j$ that engulfs $S_i$ and $S_k$. The caps, or tops, of the spheres are considered. From a previous section, we know that $B_{ijk}$ is considered the line segment of three intersecting spheres. In this case, $B_{ijk}$ is the line segment containing p and q. The caps $C_{ij} = B_i \cup S_j$ and $C_{kj} = B_k \cup S_j$ protrude from the surface of $S_j$. The parameters obtained from this allows us to find the area similar to how we found it for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle. Essentially, the caps are rotating in place. It might be easy to think about how diameter of the caps can represent the height of this "rectangle" while the distance between the caps signifies its width.
 \begin{figure}[h!]
 \caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j.\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure7}}
 \end{figure}
 
-Using this spherical rectangle shape, the we find the area to be the difference between the center of the circles divided by the circumference of the larger ball (which is in this case) times the area of the slice of $S_j$ between $p$ and $q$. The area derivative of this larger ball becomes: $\frac{dA_j}{d\eta_j} = 2\varrho_{ijk}$
+Using this spherical rectangle shape, and the fact that we know the caps are rotating, the change in area is found to be the change in the difference between the center of the circles $\eta_j$ divided by the circumference of the set of balls in the larger sphere (which $S_j$ is in this case) times the area of the slice of $S_j$ between $p$ and $q$: 
+\begin{align}
+dA_j = \frac{d\eta_j}{2\pi\varrho_j}4\pi\varrho_j\varrho_{ijk}\\
+\end{align}
+$\frac{d\eta_j}{2\pi\varrho_j}$ acts like the change in the "width" of the spherical rectangle while $4\pi\varrho_j\varrho_{ijk}$ serves as the change in the "height" of the spherical rectangle.The area derivative of this larger ball becomes:
+\begin{equation*}
+\frac{dA_j}{d\eta_j }= 2\varrho_{ijk}
+\end{equation*}
 
-\subsection{Combining the Area Equations} 
-After we’ve looked at how to find the area derivatives, we can see how they’re able to come together. As was mentioned before, because the derivatives are linear, they can be separated into a sum of their components. For the case of the direction-preserving motion, $u_{ij} = \frac{z_i - z_j}{\zeta_{ij}}$ , showing that the gradient is dependent on the distance between the two centers of $S_i$ and $S_j$. The gradient vector for the distance preserving motion is dependent on the component of the intersection to two of the spheres ($u_{ik}$) that is normal to the component of intersection between the other two spheres ($u_{ij}$). This makes $u_{ijk} = \frac{u_{ik} - <u_{ik},u_{ij}> \cdot u_{ij}}{\|(u_{ik} - <u_{ik},u_{ij}>) \cdot u_{ij}\|}$
+\subsection{Combining the Area Equations}
+Now that we've derived area derivative equations for both types of motions, we can see how they’re able to come together. As mentioned before, because the derivatives are linear, they can be separated into a sum of certain components. The gradient vector \textbf{u} shows the direction or trend of the area. For the case of the direction-preserving motion it is stated $u_ij = \frac{z_i - z_j}{zeta_ij}$ , showing that the unit vector $u_{ij}$ for two intersecting spheres $S_i$ and $S_j$ is dependent on the distance between their centers. The gradient vector $u_ijk$ for distance preserving motion is dependent on the component of the intersection to two of the spheres ($u_ik$) that is normal to the component of intersection between the other two spheres ($u_ij$). This makes $u_{ijk} = \frac{u_{ik} - <u_{ik},u_{ij}> \cdot u_{ij}}{\|(u_{ik} - <u_{ik},u_{ij}>) \cdot u_{ij}\|}$
 
-Based on the above derivation above, we can state the unweighted and weighted area derivative theorems . Remember that we said each state 	\textbf{z} was in $\R^3n$, and each \textbf{z} represents set of balls $B_i$ so that $0<=i<=n-1$. So the center of $B_i$ is represented by $z_i$, which is equal to $\lbrack\textbf{z}_{3i+1},\textbf{z}_{3i+2},\textbf{z}_{3i+3}\rbrack$. Looking at the area derivative theorem, the derivative of the area at some \textbf{z} to be $DA_z(\textbf{t}) = <\textbf{a},\textbf{t}>$, where \textbf{a} is a gradient vector like \textbf{u} and 	\textbf{t} is the variable vector mentioned above. They state that for the unweighted area derivative, 
+Based on what has already been shown, the unweighted and weighted area derivative theorems can be stated. Remember that we said each state \textbf{z} was in $\R^{3n}$, and each \textbf{z} represents set of balls $B_i$ so that $0<=i<=n-1$. Looking at the area derivative theorem, the derivative of the area at some \textbf{z} to be $DA_z(\textbf{t}) = <\textbf{a},\textbf{t}>$, where \textbf{a} is a gradient vector like \textbf{u} and 	\textbf{t} is the variable vector mentioned above. They state that for the unweighted area derivative, 
 \begin{equation}
 \textbf{a} = \sum_j \sigma_{ij}\cdot a_{ij}+ \sum_j \sum_k \beta_{ijk}\cdot a_{ijk}
 \end{equation}
 
 The first sum shows the contribution of the direction preserving motion while the second sum shows the contribution of the distance preserving motion. We can see for the first sum that we are summing over all of the points along the boundary when considering the intersection of two spheres $S_i$ and $S_j$, and the second sum considers the sum of points along the intersection for three intersecting spheres. Also for $a_{ij}$ and $a_{ijk}$:
 \begin{align*}
-&a_{ij} = \pi*(\varrho_i+\varrho_j)*\left[1 - \frac{(\varrho_i - \varrho_j)^2}{\zeta_{ij}^2}\right]\cdot u_{ij} \\
-&a_{ijk} = 2\varrho_{ijk}\frac{\varrho_i - \varrho_j}{\zeta_{ij}} \cdot u_{ij}
+&a_{ij} = \pi*(\varrho_i+\varrho_j)*\left[1 - \frac{(\varrho_i - \varrho_j)^2}{\zeta_{ij}^2}\right]\cdot u_{ij}\\
+&a_{ijk} = 2\varrho_{ijk}\frac{\varrho_i - \varrho_j}{\zeta_{ij}} \cdot u_{ijk}
 \end{align*}
 
 The weighted area derivative theorem, defined as $DE_z(\textbf{t}) = <\textbf{e},\textbf{t}>$ is defined similarly to the area derivative theorem, but multiplied by the solvent parameter $\alpha$ i.e
@@ -237,7 +254,7 @@ The weighted area derivative theorem, defined as $DE_z(\textbf{t}) = <\textbf{e}
 \begin{align*}
 &\textbf{e} = \sum_j \sigma_{ij}\cdot e_{ij}+ \sum_j \sum_k \beta_{ijk} \cdot e_{ijk} \\
 &e_{ij} = \pi\left((\alpha_i\varrho_i +\alpha_j\varrho_j) - \frac{(\alpha_i\varrho_i  - \alpha_j \varrho_j)(\varrho_i^2 - \varrho_j^2)}{\zeta_{ij}^2}\right)\cdot u_{ij} \\
-&a_{ijk} = 2\varrho_{ijk}\frac{\alpha_i\varrho_i - \alpha_j\varrho_j}{\zeta_{ij}}\cdot u_{ij}
+&e_{ijk} = 2\varrho_{ijk}\frac{\alpha_i\varrho_i - \alpha_j\varrho_j}{\zeta_{ij}}\cdot u_{ijk}
 \end{align*}
 
 Above, we described $\textbf{a}$ and $\textbf{e}$. Using these, we can the clearly state the area derivative equations. For the unweighted area derivative equation, the direction preserving component is the the fraction of the solvent-exposed surface times the derivative of the area: $\sigma_{ij}<a_{ij},t_i>$ and the distance preserving component is the same: $\beta_{ijk}<a_{ijk},t_i>$. We know that the unweighted area derivative is the sum of these two components:
@@ -248,12 +265,13 @@ Just like before, the weighted area derivative is basically the same as the unwe
 \begin{equation}
 DE_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j!=i}\left(\sigma_{ij}<e_{ij},t_i> + \sum_{k!=i,j} \beta_{ijk}<e_{ijk},t_i>\right)
 \end{equation}
+These are the derivative equations that can then be implemented into a software and run on different molecules. It is important to note that there are cases where these areas will be discontinuous. We won't elaborate on these, but, for example, discontinuities can happen in a case where three spheres intersect at a circle. There are other cases of discontinuities, which are useful to know in order to run this program successfully.
 
 \subsection{Model Assumptions}
 As explained above, one of the biggest assumptions made is by representing each atom as a ball. This ball is surrounded by a sphere whose distance from the edge of the ball represents the radius of a solvent sphere (Figure 1). A solvent refers to a liquid the molecule is suspended in, usually water. Another assumption to point out is that water is being represented as a sphere (continuously) rather than a collection of atoms. 
 
 
-\section{Application of ALPHAMOL to SASA Calculations}
+\section{Application of ALPHAMOL to Molecular Modeling}
 To test the time cost of \textsc{alphamol} (the computational implement of the method described in $\S3$) we took 250 PDB structures from the RCSB database (listed in the supplemental) and calculated the number of polar atoms buried in the structure that are not making hydrogen bonds. This calculation indirectly uses a SASA calculator to determine if atoms close to the surface are truly buried. If they have any SASA that is nonzero, the atom is assumed to be making a hydrogen bond with the implicit solvent. We compared the time taken to complete the buried unsatisfied polars calculation for the \textsc{alphamol} and Shrake-Rupley SASA calculators. We found that \textsc{alphamol} is slower, but it is more accurate.
 
 
@@ -279,9 +297,6 @@ To test the time cost of \textsc{alphamol} (the computational implement of the m
 
 \begin{thebibliography}{9}
 
-\bibitem{Bryant} 
-Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
-
 \bibitem{DeCoste}
 DeCoste, Donald J., Zumdahl, Steven S. General Chemistry 142 University of Washington 7th Edition, Boston, Cengage Learning, 2015.
 
@@ -291,6 +306,9 @@ Edelsbrunner, H. The Union of Balls and Its Dual Shape. Discrete \& Computationa
 \bibitem{Fischer} 
 Fischer, Kaspar. Introduction to Alpha Shapes. Stanford University, lecture notes, 2011.
 
+\bibitem{Levitt} 
+Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
+
 \bibitem{Richmond}
 Richmond, Timothy J. Solvent Accessible Surface Area and Excluded Volume in Proteins. J. Mol. Biol. 178 (1984), 63-89.
 
@@ -299,6 +317,9 @@ Rotskoff, Grant. The Gauss-Bonnet Theorem. University of Chicago REU, paper, 201
 
 \bibitem{Schnell}
 Schnell, Christian. The Gauss-Bonnet Theorem. talk at Columbus, 2004.
+
+\bibitem{Le Grand}
+Le Grand, Scott M., Merz, Kenneth M. Jr. Rapid approximation to molecular surface area via the use of Boolean logic and look-up tables. Journal of Computational Chemistry. 14 (1993). 349-352.
 
 \end{thebibliography}
 \end{document}  
