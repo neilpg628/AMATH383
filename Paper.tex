@@ -61,7 +61,7 @@ The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\
 \end{figure}
 Thus if we know $k_g$ (the geodesic curvature) of the boundary of $M$ at all points, we can compute $A$. If $\partial M$ is piecewise smooth, then $\int_{\partial M} k_g ds$ is the sum of the integrals along the components of the boundary plus the sum of the angles by which the elements of the boundary turn at the corners. For the simple example of a geodesic triangle on a sphere of radius $\rho$, $\int_\gamma k_g ds=0$ where $\gamma$ is a piece of $\partial M$. Thus $\int_{\partial M} k_g ds=0+\sum (\pi-\alpha_i)$, where $\alpha_i$ are the interior angles of the triangle. Plugging this into $(5)$ gives $A=\rho^2(-\pi+\sum\alpha_i)$. This is the well known Girard's Theorem. 
 
-In our case, the boundaries of $M$ won't be piecewise geodesic, and thus calculating $\int_{\partial M} k_g ds$ will require knowledge of the circles of intersection between the spheres. With that data calculating $k_g$ simply requires some vector calculus.
+In our case, the boundaries of $M$ won't be piecewise geodesic, and thus calculating $\int_{\partial M} k_g ds$ will require knowledge of the circles of intersection between the spheres. With that data calculating $k_g$ simply requires some vector calculus$^1$.
 We can calculate the SASA of the entire protein this way, by adding up the contributions of the individual regions $M$ across all atoms.
 
 \section{The Power Diagram Model}
@@ -78,7 +78,7 @@ To draw the Delaunay triangles, the centers of the balls are taken to be the ver
 \end{comment}
 
 \begin{comment}
-Before launching into how the authors modeled and derived area equations for computational molecular modeling, we should discuss the concept behind $\alpha$-shapes.  $\alpha$-shapes are the foundation of this model, and knowing what they are will help us better understand the derivations presented in the further sections. Hence imagine a set of points in $\R^3$ and we want to describe the 'shape' of these points. One solution is the convex hull of these points, which has been quite well studied. However $\alpha$-shapes are hulls that still include all points, but so so in finer detail than the standard convex hull. Constructing an $\alpha$-shape can be thought of via the following analogy from Fischer.
+Before launching into how the authors modeled and derived area equations for computational molecular modeling, we should discuss the concept behind $\alpha$-shapes.  $\alpha$-shapes are the foundation of this model, and knowing what they are will help us better understand the derivations presented in the further sections. Hence imagine a set of points in $\R^3$ and we want to describe the 'shape' of these points. One solution is the convex hull of these points, which has been quite well studied. However $\alpha$-shapes are hulls that still include all points, but so so in finer detail than the standard convex hull. Constructing an $\alpha$-shape can be thought of via the following analogy from Fischer$^2$.
 
 Imagine a mass of $M\&M$ ice cream in $\R^3$, with a point set $S$ suspended in it like a set of $M\&M$'s. Using a spherical ice cream scoop with radius $\alpha$, we start removing all parts of ice cream we can reach without removing the $M\&M$'s. This includes internal scoops that might not be reachable from the outside. The remaining mass will be an $\alpha$-shape of the set of $M\&M$'s. By varying $\alpha$ from 0 to $\infty$, the corresponding $\alpha$-shape goes from $S$ itself to the standard convex hull of $S$. Convex hulls and $\alpha$-shapes are important because the Delaunay Triangulation of a set in $\R^n$ can be viewed as the projection of the corresponding convex hull in $\R^{n+1}.^3$ Thus we can find the Delaunay Triangulation of the set of atom centers by calculating the convex hull. This computation is also quite fast.
 \end{comment}
@@ -145,13 +145,14 @@ The collection of spheres, or the entire molecule, is known as a space-filling d
 
 bd F means the boundary of F. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
 Using the dual complex, the authors go on to specify the equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later:
-\begin{comment}
+
 \begin{align*}
-\sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})-\sum_{k,l}length(S_^k{ij}\capS^l_{ij})}{2\pi\varrho_{ij}}
+\sigma_{ij} = 1 - \frac{\sum_k length(S^k_{ij})-\sum_{k,l} length(S^k_{ij}\cap S^l_{ij})}{2\pi\varrho_{ij}}
 \end{align*}
-\end{comment}
+
 
 This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of F.
+
 
 $\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs by the area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan(1986). So for just one ball $B_i$:
 \begin{align*}
@@ -177,7 +178,7 @@ In this type of motion, it is assumed that two spheres $S_i$ and $S_j$ bounded w
 In this case, the space-filling diagram F consits of all the atoms in $S_i$ and $S_j$, or $F = B_i \cup B_j$.
 
 \begin{figure}[h!]
-\caption{Two intersecting spheres $S_i$ and $S_j$.}
+\caption{Two intersecting spheres $S_i$ and $S_j.\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure6}}
 \end{figure}
 
@@ -222,7 +223,7 @@ Now we can find the area of both spheres. For two spheres, it makes sense that $
 \subsection{Distance Preserving Motion}
 In distance preserving motion, one sphere rotates about the other. Imagine three spheres interesting at two points, p and q. This time, F is going to include all the points contained in all three spheres. It is assumer that if the spheres intersect at two points then one sphere contains the other two. In this case, it is $S_j$ that engulfs $S_i$ and $S_k$. The caps, or tops, of the spheres are considered. From a previous section, we know that $B_{ijk}$ is considered the line segment of three intersecting spheres. In this case, $B_{ijk}$ is the line segment containing p and q. The caps $C_{ij} = B_i \cup S_j$ and $C_{kj} = B_k \cup S_j$ protrude from the surface of $S_j$. The parameters obtained from this allows us to find the area similar to how we found it for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle. Essentially, the caps are rotating in place. It might be easy to think about how diameter of the caps can represent the height of this "rectangle" while the distance between the caps signifies its width.
 \begin{figure}[h!]
-\caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j$.}
+\caption{Three spheres intersecting at two points: $S_i$, $S_k$ and $S_j.\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure7}}
 \end{figure}
 
