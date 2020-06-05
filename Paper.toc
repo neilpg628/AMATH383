@@ -8,9 +8,9 @@
 \contentsline {subsection}{\numberline {3.2}Application to Protein Structures}{6}% 
 \contentsline {subsection}{\numberline {3.3}Direction Preserving Motion}{9}% 
 \contentsline {subsection}{\numberline {3.4}Distance Preserving Motion}{11}% 
-\contentsline {subsection}{\numberline {3.5}Combining the Area Equations}{12}% 
+\contentsline {subsection}{\numberline {3.5}Combining the Area Equations}{11}% 
 \contentsline {subsection}{\numberline {3.6}Model Assumptions}{13}% 
 \contentsline {section}{\numberline {4}Application of ALPHAMOL to SASA Calculations}{13}% 
-\contentsline {section}{\numberline {5}Glossary}{14}% 
-\contentsline {section}{List of Figures}{14}% 
+\contentsline {section}{\numberline {5}Glossary}{13}% 
+\contentsline {section}{List of Figures}{13}% 
 \contentsline {section}{References}{14}% 

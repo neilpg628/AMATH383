@@ -1,8 +1,8 @@
 \contentsline {figure}{\numberline {1}{\ignorespaces Two Intersecting Spheres}}{5}% 
 \contentsline {figure}{\numberline {2}{\ignorespaces $B_1$ where $n = 2$ is bound by a solvent sphere. The radius of the solvent is the distance between the edge of the ball and the sphere.}}{6}% 
 \contentsline {figure}{\numberline {3}{\ignorespaces Three balls in space bounded by three different spheres. Their centers are used for Delaunay Triangulation.}}{7}% 
-\contentsline {figure}{\numberline {4}{\ignorespaces A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$[1]$}}{7}% 
-\contentsline {figure}{\numberline {5}{\ignorespaces The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.$[1]$}}{8}% 
-\contentsline {figure}{\numberline {6}{\ignorespaces The star of K and link of the star are shown.$[1]$}}{8}% 
-\contentsline {figure}{\numberline {7}{\ignorespaces Two intersecting spheres $S_i$ and $S_j.[1]$}}{9}% 
-\contentsline {figure}{\numberline {8}{\ignorespaces Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j.[1]$}}{11}% 
+\contentsline {figure}{\numberline {4}{\ignorespaces A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).}}{7}% 
+\contentsline {figure}{\numberline {5}{\ignorespaces The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.}}{8}% 
+\contentsline {figure}{\numberline {6}{\ignorespaces The star of K and link of the star are shown.}}{8}% 
+\contentsline {figure}{\numberline {7}{\ignorespaces Two intersecting spheres $S_i$ and $S_j$.}}{9}% 
+\contentsline {figure}{\numberline {8}{\ignorespaces Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j$.}}{11}% 
