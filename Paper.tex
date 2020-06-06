@@ -25,7 +25,7 @@ Accurately and quickly calculating the SASA of proteins has been a problem that 
 \subsection{Geometrical Representation of Atoms}
 While atoms are comprised of protons, neutrons, and electrons, electrons are what give them their properties. Electrons make up the volume of an atom, and are more likely to be found closer to the nucleus than away. Because we don’t know for certain where electrons are in an atom, they can be represented by orbitals, or positions that give the probability of electrons being there. Orbitals can take on different shapes, generally resembling some type of dumbbell, but when these orbitals come together, they form a roughly spherical shape (DeCoste, Zumdahl p.551-557). This is why atoms are often mathematically modeled as spherical objects.
 \subsection{Shrake-Rupley Algorithm}
-The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. Prior exact algorithms could also fail if the protein surface was not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED and not subject to the surface continuity problems that can trouble the analytic calculator. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The molecular surface area can be then written as integral of didio $\Psi\Phi\Xi\alpha^2$
+The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. Prior exact algorithms could also fail if the protein surface was not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED and not subject to the surface continuity problems that can trouble the analytic calculator. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The molecular surface area can be then written as integral of 
 \begin{equation}
 A_i=4\pi r_i^2\frac{l_{exposed}}{l_{total}} \\
 a_i = 3\pi
@@ -112,9 +112,6 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 \caption{Three balls in space bounded by three different spheres. Their centers are used for Delaunay Triangulation.}
 \centerline{\includegraphics[width=3in]{Figure2}}
 \end{figure}
-
-
-%The authors make use of a power diagram for their model, which is another name for the structure of spheres shown in Figure 2. Just like we mentioned previously, the power diagram consists of power cells. [Repetitive]
 
 \begin{figure}[h!]
 \caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$\lbrack1\rbrack$}
@@ -273,7 +270,7 @@ As explained above, one of the biggest assumptions made is by representing each 
 
 
 \section{Application of ALPHAMOL to Molecular Modeling}
-To test the time cost of \textsc{alphamol} (the computational implement of the method described in $\S3$) we took 250 PDB structures from the RCSB database (listed in the supplemental) and calculated the number of polar atoms buried in the structure that are not making hydrogen bonds. This calculation indirectly uses a SASA calculator to determine if atoms close to the surface are truly buried. If they have any SASA that is nonzero, the atom is assumed to be making a hydrogen bond with the implicit solvent. We compared the time taken to complete the buried unsatisfied polars calculation for the \textsc{alphamol} and Shrake-Rupley SASA calculators. We found that \textsc{alphamol} is slower, but it is more accurate.
+To test the time cost of \textsc{alphamol} (the computational implement of the method described in $\S3$) we took 100 PDB structures from the RCSB database (listed in the supplemental) and calculated the number of polar atoms buried in the structure that are not making hydrogen bonds. This calculation indirectly uses a SASA calculator to determine if atoms close to the surface are truly buried. If they have any SASA that is nonzero, the atom is assumed to be making a hydrogen bond with the implicit solvent. We compared the time taken to complete the buried unsatisfied polars calculation for the \textsc{alphamol} and Shrake-Rupley SASA calculators. We found that \textsc{alphamol} is slower, but it is more accurate.
 
 
 \section{Glossary}
@@ -298,6 +295,9 @@ To test the time cost of \textsc{alphamol} (the computational implement of the m
 
 \begin{thebibliography}{9}
 
+\bibitem{Bryant} 
+Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
+
 \bibitem{DeCoste}
 DeCoste, Donald J., Zumdahl, Steven S. General Chemistry 142 University of Washington 7th Edition, Boston, Cengage Learning, 2015.
 
@@ -307,8 +307,12 @@ Edelsbrunner, H. The Union of Balls and Its Dual Shape. Discrete \& Computationa
 \bibitem{Fischer} 
 Fischer, Kaspar. Introduction to Alpha Shapes. Stanford University, lecture notes, 2011.
 
-\bibitem{Levitt} 
-Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
+\bibitem{Le Grand}
+Le Grand, Scott M., Merz, Kenneth M. Jr. Rapid approximation to molecular surface area via the use of Boolean logic and look-up tables. Journal of Computational Chemistry. 14 (1993). 349-352.
+
+\bibitem{PDB} 
+H.M. Berman, J. Westbrook, Z. Feng, G. Gilliland, T.N. Bhat, H. Weissig, I.N. Shindyalov, P.E. Bourne.
+(2000) The Protein Data Bank Nucleic Acids Research, 28: 235-242.
 
 \bibitem{Richmond}
 Richmond, Timothy J. Solvent Accessible Surface Area and Excluded Volume in Proteins. J. Mol. Biol. 178 (1984), 63-89.
@@ -318,9 +322,6 @@ Rotskoff, Grant. The Gauss-Bonnet Theorem. University of Chicago REU, paper, 201
 
 \bibitem{Schnell}
 Schnell, Christian. The Gauss-Bonnet Theorem. talk at Columbus, 2004.
-
-\bibitem{Le Grand}
-Le Grand, Scott M., Merz, Kenneth M. Jr. Rapid approximation to molecular surface area via the use of Boolean logic and look-up tables. Journal of Computational Chemistry. 14 (1993). 349-352.
 
 \end{thebibliography}
 \end{document}  

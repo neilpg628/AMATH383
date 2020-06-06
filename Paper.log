@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  5 JUN 2020 08:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  5 JUN 2020 17:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -283,13 +283,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-<mask.png, id=16, 481.8pt x 345.29pt>
+<mask.png, id=17, 481.8pt x 345.29pt>
 File: mask.png Graphic file (type png)
 <use mask.png>
 Package pdftex.def Info: mask.png  used on input line 43.
 (pdftex.def)             Requested size: 216.81pt x 155.37904pt.
  [3]
-<spheres.jpg, id=24, 562.1pt x 421.575pt>
+<spheres.jpg, id=25, 562.1pt x 421.575pt>
 File: spheres.jpg Graphic file (type jpg)
 <use spheres.jpg>
 Package pdftex.def Info: spheres.jpg  used on input line 60.
@@ -299,12 +299,12 @@ Package pdftex.def Info: spheres.jpg  used on input line 60.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [4 <./mask.png>] [5 <./spheres.jpg>]
-<Figure8.jpg, id=35, 603.25375pt x 401.5pt>
+<Figure8.jpg, id=36, 603.25375pt x 401.5pt>
 File: Figure8.jpg Graphic file (type jpg)
 <use Figure8.jpg>
 Package pdftex.def Info: Figure8.jpg  used on input line 106.
 (pdftex.def)             Requested size: 216.81pt x 144.29483pt.
-<Figure2.jpg, id=36, 469.755pt x 455.7025pt>
+<Figure2.jpg, id=37, 469.755pt x 455.7025pt>
 File: Figure2.jpg Graphic file (type jpg)
 <use Figure2.jpg>
 Package pdftex.def Info: Figure2.jpg  used on input line 113.
@@ -313,26 +313,26 @@ Package pdftex.def Info: Figure2.jpg  used on input line 113.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figure4.jpg, id=37, 720.6925pt x 305.14pt>
+<Figure4.jpg, id=38, 720.6925pt x 305.14pt>
 File: Figure4.jpg Graphic file (type jpg)
 <use Figure4.jpg>
-Package pdftex.def Info: Figure4.jpg  used on input line 121.
+Package pdftex.def Info: Figure4.jpg  used on input line 118.
 (pdftex.def)             Requested size: 216.81pt x 91.79413pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figure9.jpg, id=38, 680.5425pt x 415.5525pt>
+<Figure9.jpg, id=39, 680.5425pt x 415.5525pt>
 File: Figure9.jpg Graphic file (type jpg)
 <use Figure9.jpg>
-Package pdftex.def Info: Figure9.jpg  used on input line 129.
+Package pdftex.def Info: Figure9.jpg  used on input line 126.
 (pdftex.def)             Requested size: 216.81pt x 132.38982pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figure5.jpg, id=39, 963.6pt x 722.7pt>
+<Figure5.jpg, id=40, 963.6pt x 722.7pt>
 File: Figure5.jpg Graphic file (type jpg)
 <use Figure5.jpg>
-Package pdftex.def Info: Figure5.jpg  used on input line 136.
+Package pdftex.def Info: Figure5.jpg  used on input line 133.
 (pdftex.def)             Requested size: 216.81pt x 162.60048pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -342,7 +342,7 @@ igure5.jpg>]
 <Figure6.jpg, id=52, 206.27063pt x 113.67468pt>
 File: Figure6.jpg Graphic file (type jpg)
 <use Figure6.jpg>
-Package pdftex.def Info: Figure6.jpg  used on input line 181.
+Package pdftex.def Info: Figure6.jpg  used on input line 179.
 (pdftex.def)             Requested size: 216.81pt x 119.48508pt.
 
 
@@ -352,19 +352,19 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure7.jpg, id=59, 207.77625pt x 163.3603pt>
 File: Figure7.jpg Graphic file (type jpg)
 <use Figure7.jpg>
-Package pdftex.def Info: Figure7.jpg  used on input line 226.
+Package pdftex.def Info: Figure7.jpg  used on input line 224.
 (pdftex.def)             Requested size: 216.81pt x 170.469pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [11] [12 <./Figure7.jpg>] [13]
-Overfull \hbox (63.33636pt too wide) detected at line 293
+Overfull \hbox (63.33636pt too wide) detected at line 291
 []
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 293--293
+Overfull \hbox (30.0pt too wide) in paragraph at lines 291--291
 [] 
  []
 
@@ -372,36 +372,33 @@ Overfull \hbox (30.0pt too wide) in paragraph at lines 293--293
 \tf@lof=\write4
 \openout4 = `Paper.lof'.
 
- [14] [15] (./Paper.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+ [14] [15] (./Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3248 strings out of 492616
- 43608 string characters out of 6129482
- 125829 words of memory out of 5000000
- 7101 multiletter control sequences out of 15000+600000
+ 3249 strings out of 492616
+ 43613 string characters out of 6129482
+ 125856 words of memory out of 5000000
+ 7102 multiletter control sequences out of 15000+600000
  12423 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,13n,27p,1715b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
-sr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
-local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
-xlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
-ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
-2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
-9/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Paper.pdf (15 pages, 372061 bytes).
+</usr/local/texlive/2019/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
+pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
+.pfb>
+Output written on Paper.pdf (15 pages, 379092 bytes).
 PDF statistics:
  128 PDF objects out of 1000 (max. 8388607)
  84 compressed objects within 1 object stream
