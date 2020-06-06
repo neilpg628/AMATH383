@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 JUN 2020 13:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 JUN 2020 14:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -367,7 +367,7 @@ Package pdftex.def Info: mask.png  used on input line 78.
 <spheres.jpg, id=25, 562.1pt x 421.575pt>
 File: spheres.jpg Graphic file (type jpg)
 <use spheres.jpg>
-Package pdftex.def Info: spheres.jpg  used on input line 98.
+Package pdftex.def Info: spheres.jpg  used on input line 99.
 (pdftex.def)             Requested size: 216.81pt x 162.60599pt.
 
 
@@ -377,12 +377,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure8.jpg, id=36, 603.25375pt x 401.5pt>
 File: Figure8.jpg Graphic file (type jpg)
 <use Figure8.jpg>
-Package pdftex.def Info: Figure8.jpg  used on input line 146.
+Package pdftex.def Info: Figure8.jpg  used on input line 148.
 (pdftex.def)             Requested size: 216.81pt x 144.29483pt.
 <Figure2.jpg, id=37, 469.755pt x 455.7025pt>
 File: Figure2.jpg Graphic file (type jpg)
 <use Figure2.jpg>
-Package pdftex.def Info: Figure2.jpg  used on input line 153.
+Package pdftex.def Info: Figure2.jpg  used on input line 155.
 (pdftex.def)             Requested size: 144.54pt x 140.21634pt.
 
 
@@ -391,7 +391,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure4.jpg, id=38, 720.6925pt x 305.14pt>
 File: Figure4.jpg Graphic file (type jpg)
 <use Figure4.jpg>
-Package pdftex.def Info: Figure4.jpg  used on input line 159.
+Package pdftex.def Info: Figure4.jpg  used on input line 162.
 (pdftex.def)             Requested size: 289.07999pt x 122.39372pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -399,7 +399,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure9.jpg, id=39, 680.5425pt x 415.5525pt>
 File: Figure9.jpg Graphic file (type jpg)
 <use Figure9.jpg>
-Package pdftex.def Info: Figure9.jpg  used on input line 167.
+Package pdftex.def Info: Figure9.jpg  used on input line 170.
 (pdftex.def)             Requested size: 216.81pt x 132.38982pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -407,19 +407,23 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure5.jpg, id=40, 963.6pt x 722.7pt>
 File: Figure5.jpg Graphic file (type jpg)
 <use Figure5.jpg>
-Package pdftex.def Info: Figure5.jpg  used on input line 174.
-(pdftex.def)             Requested size: 289.07999pt x 216.80064pt.
+Package pdftex.def Info: Figure5.jpg  used on input line 177.
+(pdftex.def)             Requested size: 216.81pt x 162.60048pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [6 <./Figure8.jpg>] [7 <./Figure2.jpg> <./Figure4.jpg> <./Figure9.jpg>]
 [8 <./Figure5.jpg>]
+Overfull \hbox (1.71819pt too wide) in paragraph at lines 215--219
+[]\OT1/cmr/m/n/10 We can think of the sphere as rep-re-sent-ing how much of the
+ sol-vent can in-ter-act with the atom. 
+ []
+
 <Figure6.jpg, id=52, 206.27063pt x 113.67468pt>
 File: Figure6.jpg Graphic file (type jpg)
 <use Figure6.jpg>
-Package pdftex.def Info: Figure6.jpg  used on input line 222.
+Package pdftex.def Info: Figure6.jpg  used on input line 228.
 (pdftex.def)             Requested size: 216.81pt x 119.48508pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -427,7 +431,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure7.jpg, id=59, 207.77625pt x 163.3603pt>
 File: Figure7.jpg Graphic file (type jpg)
 <use Figure7.jpg>
-Package pdftex.def Info: Figure7.jpg  used on input line 269.
+Package pdftex.def Info: Figure7.jpg  used on input line 276.
 (pdftex.def)             Requested size: 216.81pt x 170.469pt.
 
 
@@ -437,25 +441,25 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <daltimes.png, id=71, 462.528pt x 346.896pt>
 File: daltimes.png Graphic file (type png)
 <use daltimes.png>
-Package pdftex.def Info: daltimes.png  used on input line 326.
+Package pdftex.def Info: daltimes.png  used on input line 335.
 (pdftex.def)             Requested size: 216.81pt x 162.60709pt.
 <voxtimes.png, id=72, 462.528pt x 346.896pt>
 File: voxtimes.png Graphic file (type png)
 <use voxtimes.png>
-Package pdftex.def Info: voxtimes.png  used on input line 330.
+Package pdftex.def Info: voxtimes.png  used on input line 339.
 (pdftex.def)             Requested size: 216.81pt x 162.60709pt.
 <sasa.png, id=73, 462.528pt x 346.896pt>
 File: sasa.png Graphic file (type png)
 <use sasa.png>
-Package pdftex.def Info: sasa.png  used on input line 337.
+Package pdftex.def Info: sasa.png  used on input line 346.
 (pdftex.def)             Requested size: 216.81pt x 162.60709pt.
  [14 <./daltimes.png> <./voxtimes.png>]
-Overfull \hbox (63.33636pt too wide) detected at line 358
+Overfull \hbox (61.39194pt too wide) detected at line 367
 []
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 358--358
+Overfull \hbox (30.0pt too wide) in paragraph at lines 367--367
 [] 
  []
 
@@ -470,7 +474,7 @@ File: lstlang1.sty 2019/02/27 1.8b listings language file
 Here is how much of TeX's memory you used:
  6787 strings out of 492616
  94463 string characters out of 6129482
- 521566 words of memory out of 5000000
+ 521571 words of memory out of 5000000
  10596 multiletter control sequences out of 15000+600000
  13105 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -493,7 +497,7 @@ usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
 r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 /local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/l
 ocal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Paper.pdf (19 pages, 459920 bytes).
+Output written on Paper.pdf (19 pages, 460315 bytes).
 PDF statistics:
  155 PDF objects out of 1000 (max. 8388607)
  99 compressed objects within 1 object stream

@@ -1,7 +1,7 @@
 \contentsline {section}{\numberline {1}Abstract}{2}% 
 \contentsline {section}{\numberline {2}Previous Work}{2}% 
 \contentsline {subsection}{\numberline {2.1}Geometrical Representation of Atoms}{2}% 
-\contentsline {subsection}{\numberline {2.2}Shrake-Rupley Algorithm}{3}% 
+\contentsline {subsection}{\numberline {2.2}The Shrake-Rupley Algorithm}{3}% 
 \contentsline {subsection}{\numberline {2.3}Richmond's Algorithm and the Gauss-Bonnet Theorem}{4}% 
 \contentsline {section}{\numberline {3}The Power Diagram Model}{5}% 
 \contentsline {subsection}{\numberline {3.1}Model Assumptions}{5}% 
