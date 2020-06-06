@@ -46,13 +46,13 @@ To actually calculate $m_{iq}$, we first compute
 \end{figure}
 All points on $a_i$ within $d_i$ of the $P_{iq}$ are buried, and those bits in $m_{iq}$ are set to zero, with the rest set to 1. This string can be AND'ed with $b_i$ to produce a new $b_i$. This can be done for all spheres that intersect $a_i$ for each sphere in turn. The key insight that cuts down on the $nkl$ calculations is the fact that the $m_{iq}$ can be stored and retrieved later if the same string is ever needed. This is very likely to occur, because the $d_{iq}$ can be made independent of $r_i$ by removing the factor. Then $d_{iq}=\sqrt{2(1-\cos\theta_{iq})}$. Now we can calculate $m_{iq}$ for the range of $d_{iq}$ from 0-2.
 \subsection{Richmond's Algorithm and the Gauss-Bonnet Theorem}
-In a previous paper written by Richmond (1984), a different strategy is used to find the solvent exposed surface area of the atoms. He still represents the atoms as spheres with definite radius with centers at the atomic coordinates, but instead of using the Alpha Shapes, he made use of the Gauss-Bonnet theorem, a fundamental theorem in differential geometry which connects the topological properties of a manifold (specifically its Euler Characteristic) with its geometric properties (its curvature). A standard statement of the theorem is 
+In a previous paper written by Richmond (1984), a different strategy is used to find the solvent exposed surface area of the atoms. He still represents the atoms as spheres with definite radius with centers at the atomic coordinates, but instead of using the Alpha Shapes, he made use of the Gauss-Bonnet theorem, a fundamental theorem in differential geometry which connects the topological properties of a manifold (specifically its Euler Characteristic) with its geometric properties (its curvature) (Rotskoff 2010, Schnell 2004). A standard statement of the theorem is 
 \begin{equation}
 \int_M KdA + \int_{\partial M} k_g ds = 2\pi\chi(M)
 \end{equation}
 Here $\chi$ is the Euler Characteristic of $M$, and $K$ and $k_g$ are the Gaussian and geodesic curvatures of the manifold and the boundary respectively. For polygons, $\chi=V-E+F=1$. 
 
-The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\varrho_i^2}$. We can divide this SASA into many polygons bounded by the circles of intersection with neighboring spheres (See Figure). If $M$ is one particular region of that SASA, we can write 
+The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\varrho_i^2}$. We can divide this SASA into many polygons bounded by the circles of intersection with neighboring spheres (See Figure 2). If $M$ is one particular region of that SASA, we can write 
 \begin{align}\nonumber
 &\frac{1}{\varrho_i^2}\int_M dA + \int_{\partial M} k_g ds= 2\pi \\
 &\implies A=\varrho_i^2\left(2\pi-\int_{\partial M} k_g ds\right)
@@ -130,15 +130,15 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 In order to derive the SASA equations, we must define some additional terms. After constructing Delaunay Triangles from a set of molecules, the “star” and “link” of the alpha shape's subcomplex are defined. Each of the Delaunay triangles as a simplex, where simplex is basically refers to a triangle or tetrahedron. K is defined as a dual complex, or subcomplex of the alpha shape.
 
 \begin{figure}[h!]
-\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.$\lbrack1\rbrack$}
+\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that have a non-empty intersection.$\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure9}}
 \end{figure}
 
-As can be seen by figure 6, K is made up of multiple simplices. The star of K is a set of triangles who share a vertex and outside boundary. The link of K, then, is all of the vertices and edges in the star (Figure 7).
+As can be seen by Figure 6, K is made up of multiple simplices. The star of K is a set of triangles who share a vertex and outside boundary. The link of K, then, is all of the vertices and edges in the star (Figure 7).
 
 \begin{figure}[h!]
 \caption{The star of K and link of the star are shown.$\lbrack1\rbrack$}
-\centerline{\includegraphics[width=4in]{Figure5}}
+\centerline{\includegraphics[width=3in]{Figure5}}
 \end{figure}
 
 Knowing how the star and link of a subcomplex K are defined is useful when deriving the SASA equations.
@@ -151,9 +151,9 @@ The collection of spheres, or the entire molecule, is known as a space-filling d
 bd $F$ means the boundary of $F$. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
 Using the dual complex, we can further specify the equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later:
 
-\begin{align}
-\sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})- \sum_{k,l}length(S^k_{ij} \cap S^l_{ij})}{2\pi\varrho_{ij}}\\
-\end{align}
+\begin{equation*}
+\sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})- \sum_{k,l}length(S^k_{ij} \cap S^l_{ij})}{2\pi\varrho_{ij}}
+\end{equation*}
 
 This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right of equation 7, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of $F$.
 
@@ -303,7 +303,7 @@ To test the time cost of \textsc{alphamol} (the computational implement of the m
 &P_i:&\text{The set of points closer (by power distance) to $S_i$ than any other sphere} \\
 &K:&\text{The dual complex of Delaunay Triangulation. Consists of all power cells with non-empty intersection} \\
 &DA_{\bf z}({\bf t}):&\text{The unweighted area derivative at \textbf{t}} \\
-&DW_{\bf z}({\bf t}):&\text{The weighted area derivative at \textbf{t}} \\
+&DE_{\bf z}({\bf t}):&\text{The weighted area derivative at \textbf{t}} \\
 \end{align*}
 
 
