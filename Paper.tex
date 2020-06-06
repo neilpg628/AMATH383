@@ -1,13 +1,45 @@
 \documentclass{article}
-\usepackage{amssymb, amsfonts, amsmath, geometry, verbatim}
+\usepackage{amssymb, amsfonts, amsmath, geometry, verbatim, caption}
 \geometry{letterpaper}
-\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage[parfill]{parskip}    		
 \usepackage{graphicx}
 \graphicspath{{./}}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
 
 \newcommand{\R}{\mathbb{R}}
 
-\title{Calculating the Solvent Exposed Surface Area of Proteins with Intersecting Spheres} % Feel free to change
+\title{Calculating the Solvent Exposed Surface Area of Proteins with Intersecting Spheres} 
 \author{Gargi Kher, Neil Gupta}
 \date{\today}
 
@@ -18,35 +50,38 @@
 \tableofcontents
 \newpage
 \section{Abstract}
-Calculating the solvent-exposed surface area (SASA) of large biomolecules is an important problem in structural biology, especially in the case of proteins, where small changes in the molecule's shape can greatly limit the protein's ability to do its job. The fraction of a polar atom's surface area that is exposed to the engulfing solvent can be the difference between a stable hydrogen bond being formed with the solvent and a polar atom buried within the protein, which could prevent the protein from folding into its proper shape. Molecular dynamics simulations, which use computers to predict the time evolution of a molecular system also rely on accurate SASA calculations as a way to compute the enthalpy of hydration for the molecules in the system. Today, SASA is usually calculated based on an implicit solvation model, where the solvent is taken to be a continuous field that the molecules of interest sit in. The atoms are taken to be spheres of definite radius, and thus calculating the SASA of an atom involves calculating the fraction of the sphere that is exposed. The SASA of the entire molecule can be found by summing this quantity over all atoms. This paper gives a overview of \textsc{alphamol}, a way of analytically calculating the derivative of SASA with respect to time, a quantity which can be numerically integrated as part of a molecular dynamics simulation to predict the future state of a molecular system. We also discuss a previous way of computing SASA that \textsc{alphamol} improves upon. Finally we do some calculations of our own to benchmark the performance of these two methods and provide some modern context for where SASA computations are used.
+Calculating the solvent-exposed surface area (SASA) of large biomolecules is an important problem in structural biology, especially in the case of proteins, where small changes in the molecule's shape can greatly limit the protein's ability to do its job. The fraction of a polar atom's surface area that is exposed to the engulfing solvent can be the difference between a stable hydrogen bond being formed with the solvent and a polar atom buried within the protein, which could prevent the protein from folding into its proper shape. Molecular dynamics simulations, which use computers to predict the time evolution of a molecular system also rely on accurate SASA calculations as a way to compute the enthalpy of hydration for the molecules in the system. Today, SASA is usually calculated based on an implicit solvation model, where the solvent is taken to be a continuous field that the molecules of interest sit in. The atoms are taken to be spheres of definite radius, and thus calculating the SASA of an atom involves calculating the fraction of the sphere that is exposed. The SASA of the entire molecule can be found by summing this quantity over all atoms. This paper gives a overview of \textsc{alphamol}, a way of analytically calculating the derivative of SASA with respect to time, a quantity which can be numerically integrated as part of a molecular dynamics simulation to predict the future state of a molecular system. The chief benefits over other algorithms are numerical stability and an ability to consider internal atoms, which older SASA calculators sometimes ignored.\cite{Bryant} We also discuss two previous ways of computing SASA that \textsc{alphamol} improves upon. Finally we do some calculations of our own to benchmark the performance of these two methods and provide some modern context for where SASA computations are used.
 
 \section{Previous Work}
-Accurately and quickly calculating the SASA of proteins has been a problem that people have been trying to solve since the 1980's. One reason for this is the fact that the effective potential for solvation can be written $W=W_{elec}+W_{np}$, where $W_{elec}$ represents the electrostatic contribution and $W_{np}$ represents the nonpolar contribution to this potential. The second term depends heavily on the SASA value of the polar atoms in the molecule, as polar atoms with a low SASA value (buried polars) should to make hydrogen bonds to preserve the protein's structure. One of the earliest ways of computing this value was by Richmond (1984). His method involved modeling atoms as spheres and computing SASA as an application of the Gauss-Bonnet Theorem. This method was the basis for many future SASA calculators that optimized for attributes like speed or numerical stability. Other methods didn't focus as much on exact values in the interest of speed. The Shrake-Rupley algorithm (optimized by Legrand and Merz as discussed below), breaks up the spherical surface of each atom into a set of dots, and uses the fraction of dots that are exposed as a proxy for the exposed surface area. This is the default SASA calculator in Rosetta, a software package developed at the UW that allows for the computational analysis and design of protein structures. 
+Accurately and quickly calculating the SASA of proteins has been a problem that people have been trying to solve since the 1980's. One reason for this is the fact that the effective potential for solvation can be written $W=W_{elec}+W_{np}$, where $W_{elec}$ represents the electrostatic contribution and $W_{np}$ represents the nonpolar contribution to this potential. The second term depends heavily on the SASA value of the polar atoms in the molecule, as polar atoms with a low SASA value (buried polars) should to make internal hydrogen bonds to preserve the protein's structure. One of the earliest ways of computing this value was by Richmond (1984). His method involved modeling atoms as spheres and computing SASA as an application of the Gauss-Bonnet Theorem. This method was the basis for many future SASA calculators that optimized for attributes like speed or numerical stability. Other methods didn't focus as much on exact values in the interest of speed. The Shrake-Rupley algorithm (optimized by Legrand and Merz as discussed below), breaks up the spherical surface of each atom into a set of dots, and uses the fraction of dots that are exposed as a proxy for the exposed surface area. This is the default SASA calculator in Rosetta, a software package developed at the UW that allows for the computational analysis and design of protein structures. 
 \subsection{Geometrical Representation of Atoms}
 While atoms are comprised of protons, neutrons, and electrons, electrons are what give them their properties. Electrons make up the volume of an atom, and are generally found near the nucleus. Because we don’t know for certain where electrons are in an atom, their positions are represented by orbitals, which give the probability of electrons being in a particular location. Orbitals can take on different shapes, generally resembling some type of dumbbell, but when they come together, they form a roughly spherical shape (DeCoste, Zumdahl p.551-557). This is why atoms are often mathematically modeled as spherical objects.
 \subsection{Shrake-Rupley Algorithm}
-The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. Prior exact algorithms could also fail if the protein surface was not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED and not subject to the surface continuity problems that can trouble the analytic calculator. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The molecular surface area can be then written as integral of 
+The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. The algorithm can also fail if the protein surface is not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED, a huge improvement. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The exposed surface area of $a_i$ can be written as
 \begin{equation}
-A_i=4\pi r_i^2\frac{l_{exposed}}{l_{total}} \\
-a_i = 3\pi
+A_i=4\pi r_i^2\frac{l_{exposed}}{l_{total}} 
 \end{equation}
-where $l_{exposed}$ is the number of points that are solvent exposed. Now if we were to calculate this quantity for each atom we would need to make $nkl$ calculations, where $k$ is the average number of atoms that intersect a given atom. This could get quite intensive. What Legrand and Merz did was realize that any surface point is either buried or exposed, and thus the state of $a_i$'s surface points could be represented as an $l/8$ byte string $b_i$, where $b_{ij}=1$ means that the point is exposed and $b_{ij}=0$ means that the point is buried. This has the benefit of making the calculation of the points on $a_i$ buried by a neighboring sphere $a_q$ a boolean AND operation on $b_i$. By defining $m_{iq}$ as a boolean string with $k^{th}$ element 0 when the $k^{th}$ point of sphere $a_i$ is buried and one otherwise, the set of points on $a_i$ left exposed by the intersection with $a_q$ is (111...1) \& $m_{iq}$. Thus 
+where $l_{exposed}$ is the number of points that are solvent exposed. Now if we were to calculate this quantity for each atom we would need to make $nkl$ calculations, where $k$ is the average number of atoms that intersect a given atom. This could get quite intensive. What Legrand and Merz did was realize that any surface point is either buried or exposed, and thus the state of $a_i$'s surface points could be represented as an $l/8$ byte string $b_i$, where $b_{ij}=1$ means that the point is exposed and $b_{ij}=0$ means that the point is buried. This has the benefit of making the calculation of the points on $a_i$ buried by a neighboring sphere $a_q$ a boolean AND operation on $b_i$. By defining $m_{iq}$ as a boolean string with $k^{th}$ element 0 when the $k^{th}$ point of sphere $a_i$ is buried by $a_q$ and 1 otherwise, the set of points on $a_i$ left exposed by the intersection with $a_q$ is (111...1) \& $m_{iq}$. Thus 
 \begin{equation*}
-b_i=(111...1) \text{ \& } m_{i1} \text{ \& } m_{i2} \text{ \& } m_{i3} \text{ \& }...\text{ \& } m_{ik} \& m_{ik+1}
+b_i=(111...1) \text{ \& } m_{i1} \text{ \& } m_{i2} \text{ \& } m_{i3} \text{ \& }...\text{ \& } m_{ik} \text{ \& } m_{ik+1}
 \end{equation*}
+for each $a_k$ that intersects $a_i$.
 The SASA of $a_i$ can then be calculated by $(1)$ by setting $l_{exposed}$ as the number of bits in $b_i$. \par
 To actually calculate $m_{iq}$, we first compute 
 \begin{align}
 &\cos\theta_{iq}=\frac{r_i^2+r_{iq}^2-r_q^2}{2r_ir_{iq}} \\
 &d_{iq}=2r_i\sin\theta_{iq}=2r_i\sqrt{\frac{1-\cos\theta_{iq}}{2}}=r_i\sqrt{2(1-\cos\theta_{iq})}
 \end{align}
-\begin{figure}[h!]
-\caption{}
+
+\begin{figure}
+\caption{Calculation of $d_{iq}$ and $\theta_{iq}$ for the purpose of calculating $m_{iq}$.}
 \centerline{\includegraphics[width=3in]{mask}}
 \end{figure}
-All points on $a_i$ within $d_i$ of the $P_{iq}$ are buried, and those bits in $m_{iq}$ are set to zero, with the rest set to 1. This string can be AND'ed with $b_i$ to produce a new $b_i$. This can be done for all spheres that intersect $a_i$ for each sphere in turn. The key insight that cuts down on the $nkl$ calculations is the fact that the $m_{iq}$ can be stored and retrieved later if the same string is ever needed. This is very likely to occur, because the $d_{iq}$ can be made independent of $r_i$ by removing the factor. Then $d_{iq}=\sqrt{2(1-\cos\theta_{iq})}$. Now we can calculate $m_{iq}$ for the range of $d_{iq}$ from 0-2.
+
+All points on $a_i$ within $d_i$ of the $P_{iq}$ are buried, and those bits in $m_{iq}$ are set to zero, with the rest set to 1. This string can be AND'ed with $b_i$ to produce a new $b_i$. This can be done for all spheres that intersect $a_i$ for each sphere in turn. The key insight that cuts down on the $nkl$ calculations is the fact that the $m_{iq}$ can be stored and retrieved later if the same string is ever needed. This is very likely to occur, because the $d_{iq}$ can be made independent of $r_i$ by removing the factor $r_i$. Then $d_{iq}=\sqrt{2(1-\cos\theta_{iq})}$. Now we can calculate $m_{iq}$ for the range of $d_{iq}$ from 0-2. Once we store these masks, we will have covered all possible overlaps between spheres because we have gone through all angles $\theta_{iq}$.
+This provides a method of calculating the SASA of the entire protein. We can simply look at every intersection with a given atom and lookup the appropriate mask (based on the angle $\theta_{iq}$. Then we scale it by the radius of the atom we are looking at. Then we can perform our AND operations and find the SASA for a given atom. Iterating over all atoms gives us our answer.
 \subsection{Richmond's Algorithm and the Gauss-Bonnet Theorem}
-In a previous paper written by Richmond (1984), a different strategy is used to find the solvent exposed surface area of the atoms. He still represents the atoms as spheres with definite radius with centers at the atomic coordinates, but instead of using the Alpha Shapes, he made use of the Gauss-Bonnet theorem, a fundamental theorem in differential geometry which connects the topological properties of a manifold (specifically its Euler Characteristic) with its geometric properties (its curvature). A standard statement of the theorem is 
+In a previous paper written by Richmond (1984), a different strategy is used to find the solvent exposed surface area of the atoms. He still represents the atoms as spheres with definite radius with centers at the atomic coordinates, but instead of using voxels, he made use of the Gauss-Bonnet theorem, a fundamental theorem in differential geometry which connects the topological properties of a manifold (specifically its Euler Characteristic) with its geometric properties (its curvature). A standard statement of the theorem is 
 \begin{equation}
 \int_M KdA + \int_{\partial M} k_g ds = 2\pi\chi(M)
 \end{equation}
@@ -83,7 +118,7 @@ To draw the Delaunay triangles, the centers of the balls are taken to be the ver
 \end{comment}
 
 \begin{comment}
-Before launching into how the authors modeled and derived area equations for computational molecular modeling, we should discuss the concept behind $\alpha$-shapes.  $\alpha$-shapes are the foundation of this model, and knowing what they are will help us better understand the derivations presented in the further sections. Hence imagine a set of points in $\R^3$ and we want to describe the 'shape' of these points. One solution is the convex hull of these points, which has been quite well studied. However $\alpha$-shapes are hulls that still include all points, but so so in finer detail than the standard convex hull. Constructing an $\alpha$-shape can be thought of via the following analogy from Fischer$^2$.
+Before launching into how the authors modeled and derived area equations for computational molecular modeling, we should discuss the concept behind $\alpha$-shapes.  $\alpha$-shapes are the foundation of this model, and knowing what they are will help us better understand the derivations presented in the further sections. Hence imagine a set of points in $\R^3$ and we want to describe the 'shape' of these points. One solution is the convex hull of these points, which has been quite well studied. However $\alpha$-shapes are hulls that still include all points, but so so in finer detail than the standard convex hull. Constructing an $\alpha$-shape can be thought of via the following analogy from Fischer\cite{Fischer}.
 
 Imagine a mass of $M\&M$ ice cream in $\R^3$, with a point set $S$ suspended in it like a set of $M\&M$'s. Using a spherical ice cream scoop with radius $\alpha$, we start removing all parts of ice cream we can reach without removing the $M\&M$'s. This includes internal scoops that might not be reachable from the outside. The remaining mass will be an $\alpha$-shape of the set of $M\&M$'s. By varying $\alpha$ from 0 to $\infty$, the corresponding $\alpha$-shape goes from $S$ itself to the standard convex hull of $S$. Convex hulls and $\alpha$-shapes are important because the Delaunay Triangulation of a set in $\R^n$ can be viewed as the projection of the corresponding convex hull in $\R^{n+1}.^3$ Thus we can find the Delaunay Triangulation of the set of atom centers by calculating the convex hull. This computation is also quite fast.
 \end{comment}
@@ -119,10 +154,8 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 \end{figure}
 
 
-%The authors make use of a power diagram for their model, which is another name for the structure of spheres shown in Figure 2. Just like we mentioned previously, the power diagram consists of power cells. [Repetitive]
-
 \begin{figure}[h!]
-\caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$\lbrack1\rbrack$}
+\caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).\cite{Bryant}}
 \centerline{\includegraphics[width=4in]{Figure4}}
 \end{figure}
 
@@ -130,32 +163,32 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 In order to derive the SASA equations, we must define some additional terms. After constructing Delaunay Triangles from a set of molecules, the “star” and “link” of the alpha shape's subcomplex are defined. Each of the Delaunay triangles as a simplex, where simplex is basically refers to a triangle or tetrahedron. K is defined as a dual complex, or subcomplex of the alpha shape.
 
 \begin{figure}[h!]
-\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.$\lbrack1\rbrack$}
+\caption{The dual complex (K) of the Delaunay Triangulation only includes those power cells that non-empty intersection.\cite{Bryant}}
 \centerline{\includegraphics[width=3in]{Figure9}}
 \end{figure}
 
-As can be seen by figure 6, K is made up of multiple simplices. The star of K is a set of triangles who share a vertex and outside boundary. The link of K, then, is all of the vertices and edges in the star (Figure 7).
+As can be seen in Figure 6, K is made up of multiple simplices. The star of K is a set of triangles who share a vertex and outside boundary. The link of K, then, is all of the vertices and edges in the star (Figure 7).
 
 \begin{figure}[h!]
-\caption{The star of K and link of the star are shown.$\lbrack1\rbrack$}
+\caption{The star of K and link of the star are shown.\cite{Bryant}}
 \centerline{\includegraphics[width=4in]{Figure5}}
 \end{figure}
 
 Knowing how the star and link of a subcomplex K are defined is useful when deriving the SASA equations.
-The collection of spheres, or the entire molecule, is known as a space-filling diagram $F$. $F_i$, for instance, consists of all the atoms in $S_i$. $\sigma$ represents the fraction of a sphere on the boundary of $F$. We only really care about the boundary of $F$ because that is what contributes to the exposed surface area that will be interacting with the solvent. As mentioned earlier, a molecule can contain multiple spheres that overlap. For two intesecting spheres $S_i$ and $S_j$ that share a circle $S_{ij}$ $\sigma$ comes out to:
+The collection of spheres, or the entire molecule, is known as a space-filling diagram $F$. $F_i$, for instance, consists of all the atoms in $S_i$. $\sigma$ represents the fraction of a sphere on the boundary of $F$. We only really care about the boundary of $F$ because that is what contributes to the exposed surface area that will be interacting with the solvent. As mentioned earlier, a molecule can contain multiple spheres that overlap. For two intesecting spheres $S_i$ and $S_j$ that share a circle $S_{ij}$. $\sigma$ comes out to:
 
 \begin{equation*}
 \sigma_{ij} = \frac{length(P_i \cap P_j \cap bd F)}{length(S_{ij})}
 \end{equation*}
 
-bd $F$ means the boundary of $F$. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
+where bd $F$ means the boundary of $F$. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
 Using the dual complex, we can further specify the equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later:
 
 \begin{align}
 \sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})- \sum_{k,l}length(S^k_{ij} \cap S^l_{ij})}{2\pi\varrho_{ij}}
 \end{align}
 
-This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right of equation 7, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of $F$.
+This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are two other spheres in the power diagram coming into contact with $S_{ij}$. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the term on the right of $(6)$, the first sum adds the power distances from the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the power distances from the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of exposed surface area of $F$.
 
 $\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4\pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs from the area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan (1986). So for just one ball $B_i$:
 \begin{align*}
@@ -185,7 +218,7 @@ In direction preserving motion, it is assumed that two spheres $S_i$ and $S_j$ b
 In this case, the space-filling diagram $F$ consits of all the atoms in $S_i$ and $S_j$, in other words $F = B_i \cup B_j$ (Figure 8).
 
 \begin{figure}[h!]
-\caption{Two intersecting spheres $S_i$ and $S_j.\lbrack1\rbrack$}
+\caption{Two intersecting spheres $S_i$ and $S_j$.\cite{Bryant}}
 \centerline{\includegraphics[width=3in]{Figure6}}
 \end{figure}
 
@@ -215,7 +248,7 @@ Using this logic, we can find the same equation holds true if we consider the se
 &\text{We know that $\zeta_j = \zeta_{ij} - \zeta_i$, so just substitute this expression in:} \\
 &\zeta_i = \frac{1}{2}\left(\zeta_{ij}+\frac{\varrho_i^2-\varrho_j^2}{\zeta_{ij}}\right) \\
 &\text{A similar statement can be made for $\zeta_j$, following the steps we carried out above:} \\
-&\zeta_j = \frac{1}{2}\left[\zeta_{ij}+\frac{\varrho_j^2-\varrho_i^2}{\zeta_{ij}}\right]
+&\zeta_j = \frac{1}{2}\left(\zeta_{ij}+\frac{\varrho_j^2-\varrho_i^2}{\zeta_{ij}}\right)
 \end{align*}
 
 Now we can find the area of both spheres. For two spheres, it makes sense that $A = A_i + A_j$. Recall the area equation stated in Section 3.3. For two balls we can say: $A = 4\pi\varrho^2\sum{\sigma_i} + 4\pi\varrho^2\sum{\sigma_j}$. We have already shown what $\sigma$ is, so we can plug it in and simplify the area equation:
@@ -232,7 +265,7 @@ Now we can find the area of both spheres. For two spheres, it makes sense that $
 \subsection{Distance Preserving Motion}
 In distance preserving motion, one sphere rotates about the other. Imagine three spheres interesting at two points, $p$ and $q$ (Figure 9). This time, $F$ is going to include all the points contained in all three spheres. It is assumed that if the spheres intersect at two points then one sphere contains the other two. In this case, it is $S_j$ that engulfs $S_i$ and $S_k$. The caps, or tops of the spheres, are considered. From a previous section, we know that $B_{ijk}$ is considered the line segment of three intersecting spheres. In this case, $B_{ijk}$ is the line segment containing $p$ and $q$. The caps $C_{ij} = B_i \cup S_j$ and $C_{kj} = B_k \cup S_j$ protrude from the surface of $S_j$. The parameters obtained from this diagram allows us to find the area similar to how we found it for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle. Essentially, the caps are rotating in place. It might be easy to think about how diameter of the caps can represent the height of this “rectangle” while the distance between the caps signifies its width.
 \begin{figure}[h!]
-\caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j.\lbrack1\rbrack$}
+\caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j$.\cite{Bryant}}
 \centerline{\includegraphics[width=3in]{Figure7}}
 \end{figure}
 
@@ -286,8 +319,26 @@ As explained above, one of the biggest assumptions made is by representing each 
 
 
 \section{Application of ALPHAMOL to Molecular Modeling}
-To test the time cost of \textsc{alphamol} (the computational implement of the method described in $\S3$) we took 100 PDB structures from the RCSB database (listed in the supplemental) and calculated the number of polar atoms buried in the structure that are not making hydrogen bonds. This calculation indirectly uses a SASA calculator to determine if atoms close to the surface are truly buried. If they have any SASA that is nonzero, the atom is assumed to be making a hydrogen bond with the implicit solvent. We compared the time taken to complete the buried unsatisfied polars calculation for the \textsc{alphamol} and Shrake-Rupley SASA calculators. We found that \textsc{alphamol} is slower, but it is more accurate.
+To test the time cost of \textsc{alphamol} (the computational implementation of the method described in $\S3$) versus the Shrake-Rupley Algorithm we took 100 PDB structures from the RCSB\cite{PDB} database (listed in the supplemental) with between 30 and 330 residues and directly calculated surface areas using PyRosetta\cite{Chaudhury}, a python wrapper for Rosetta that allowed us to write a script that computed SASA for 100 structures using these two methods. We measured the time to compute SASA for each PDB for each method, and plotted this data against residue count. It can be seen that the \textsc{alphamol} method is substantially slower than the Shrake-Rupley method and that the time cost of both increases roughly linearly with the size of the structure, though it is clear that \textsc{alphamol} incurs time penalties faster than Shrake-Rupley as the structure size increases.
 
+
+\begin{figure}
+\centerline{\includegraphics[width=3in]{daltimes}}
+\caption{Plot of Computation Time versus Residue Count (Power Method)}
+\end{figure}
+\begin{figure}
+\centerline{\includegraphics[width=3in]{voxtimes}}
+\caption{Plot of Computation Time versus Residue Count (Shrake-Rupley Method)}
+\end{figure}
+
+We also plotted the distribution of the SASA values for each calculator, and while the don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, which is why it is incorporated into Rosetta today.
+\begin{figure}
+\caption{SASA Histograms for the Two Algorithms}
+\centerline{\includegraphics[width=3in]{sasa}}
+\end{figure}
+
+\section{Conclusion}
+It can be seen that SASA is a critical quantity to be able to compute for the purposes of structural biology. On a per-atom basis, it is one metric that can be used to determine if an atom is making a hydrogen bond, and by extension if the structure is energetically favorable. For protein-protein interfaces, large SASA values at the interface usually mean the proteins are more likely to bind because there is a larger binding surface. Metrics like SASA are useful because they don't require your structure to look similar to any existing PDB in order to determine if the structure is likely to be stable. This is especially important in the field of protein engineering, where there might not be any structures to compare your PDB to, and thus having independent metrics is critical to filtering out possible \textit{de novo} protein designs from sequences that won't take on any definite conformation. Thus much time has been spent on applying mathematical and computational ideas to rigorously defining and calculating SASA, in this paper we have explored a few of the most prominent methods.
 
 \section{Glossary}
 \begin{align*}
@@ -306,16 +357,29 @@ To test the time cost of \textsc{alphamol} (the computational implement of the m
 &DW_{\bf z}({\bf t}):&\text{The weighted area derivative at \textbf{t}} \\
 \end{align*}
 
+\section{Supplemental Information}
+List of PDB's used: \\
+1W4H, 2FD7, 1I2U, 1HA8, 1RO3, 1FRE, 1AHL, 1B8W, 1B7I, 3UA6,\\
+1B7K, 1IVA, 1L6H, 1KTH, 2GQV, 2KXK, 1CDT, 1BF0, 1B7V, 4AEI,\\
+4BWS, 1UBQ, 1FGP, 1CPZ, 1B4R, 1CRE, 2BCB, 4ZK9, 1BCG, 1B3C,\\
+1G47, 1NEI, 1HYM, 1A7H, 1COU, 4W9A, 1A70, 1EMV, 1AVS, 1QYS,\\
+1BB8, 1HA6, 2HSH, 2ACY, 1THX, 2Z9H, 2CBM, 2APB, 2FLS, 1AIU,\\
+4DZN, 1SRR, 2GZV, 2XKH, 1RKI, 1BMG, 2MCT, 1FI5, 1WOU, 1DZO,\\
+1DC9, 5PC4, 1WDV, 2OXZ, 1P3B, 129L, 4FH1, 1S2B, 2R32, 1BWR,\\
+6MKL, 3CS1, 3PMD, 2O35, 3S9B, 3PFC, 2CA8, 2EBY, 1IIB, 1GAJ,\\
+1I9Q, 4LUP, 3RQ8, 1VHI, 5OIL, 6CW0, 2YM4, 2ZO1, 4KXO, 6G0M,\\
+5R2D, 2GNP, 6F65, 2CM8, 5OH3, 2W5L, 2VV9, 6CQS, 6DJA, 6D40
 
-\listoffigures
+Python Code:
+\lstinputlisting[language=Python]{sasa.py}
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{10}
 
 \bibitem{Bryant} 
-Bryant, R., Edelsbrunner, H., Koehl, P., Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
+Bryant, R, Edelsbrunner, H, Koehl, P, Levitt, M. The Area Derivative of a Space-Filling Diagram. Discrete \& Computational Geometry. 32 (2004), 293-308.
 
 \bibitem{DeCoste}
-DeCoste, Donald J., Zumdahl, Steven S. General Chemistry 142 University of Washington 7th Edition, Boston, Cengage Learning, 2015.
+DeCoste, Donald J, Zumdahl, Steven S. General Chemistry 142 University of Washington 7th Edition, Boston, Cengage Learning, 2015.
 
 \bibitem{Edelsbrunner} 
 Edelsbrunner, H. The Union of Balls and Its Dual Shape. Discrete \& Computational Geometry. 13 (1995), 415-440.
@@ -324,7 +388,7 @@ Edelsbrunner, H. The Union of Balls and Its Dual Shape. Discrete \& Computationa
 Fischer, Kaspar. Introduction to Alpha Shapes. Stanford University, lecture notes, 2011.
 
 \bibitem{Le Grand}
-Le Grand, Scott M., Merz, Kenneth M. Jr. Rapid approximation to molecular surface area via the use of Boolean logic and look-up tables. Journal of Computational Chemistry. 14 (1993). 349-352.
+Le Grand, Scott M, Merz, Kenneth M. Jr. Rapid approximation to molecular surface area via the use of Boolean logic and look-up tables. Journal of Computational Chemistry. 14 (1993). 349-352.
 
 \bibitem{PDB} 
 H.M. Berman, J. Westbrook, Z. Feng, G. Gilliland, T.N. Bhat, H. Weissig, I.N. Shindyalov, P.E. Bourne.
@@ -336,8 +400,13 @@ Richmond, Timothy J. Solvent Accessible Surface Area and Excluded Volume in Prot
 \bibitem{Rotskoff}
 Rotskoff, Grant. The Gauss-Bonnet Theorem. University of Chicago REU, paper, 2010
 
+\bibitem{Chaudhury}
+S. Chaudhury, S. Lyskov \& J. J. Gray, "PyRosetta: a script-based interface for implementing molecular modeling algorithms using Rosetta," Bioinformatics, 26(5), 689-691 (2010).
+
 \bibitem{Schnell}
 Schnell, Christian. The Gauss-Bonnet Theorem. talk at Columbus, 2004.
 
 \end{thebibliography}
+
+\listoffigures
 \end{document}  
