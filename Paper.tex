@@ -271,11 +271,11 @@ Not surprisingly, $e_{ij}$ and $e_{ijk}$ depend on (respectively) $u_{ij}$ and $
 
 Above, we described $\textbf{a}$ and $\textbf{e}$. Using these, we can then clearly state the area derivative equations. For the unweighted area derivative equation, the direction preserving component is the the fraction of the solvent-exposed surface times the derivative of the area: $\sigma_{ij}<a_{ij},t_i>$ and the distance preserving component is the same: $\beta_{ijk}<a_{ijk},t_i>$. We know that the unweighted area derivative is the sum of these two components:
 \begin{equation}
-DA_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j!=i}\left(\sigma_{ij}<a_{ij},t_i> + \sum_{k!=i,j} \beta_{ijk}<a_{ijk},t_i>\right)
+DA_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j\neq i}\left(\sigma_{ij}<a_{ij},t_i> + \sum_{k\neq i,j} \beta_{ijk}<a_{ijk},t_i>\right)
 \end{equation}
 Just like before, the weighted area derivative is basically the same as the unweighted derivative: 
 \begin{equation}
-DE_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j!=i}\left(\sigma_{ij}<e_{ij},t_i> + \sum_{k!=i,j} \beta_{ijk}<e_{ijk},t_i>\right)
+DE_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j\neq i}\left(\sigma_{ij}<e_{ij},t_i> + \sum_{k\neq i,j} \beta_{ijk}<e_{ijk},t_i>\right)
 \end{equation}
 These are the derivative equations that can then be implemented into a software and run on different molecules. It is important to note that there are cases where these areas will be discontinuous. We won't elaborate on these, but, for example, discontinuities can happen in a case where three spheres intersect at a circle. There are other cases of discontinuities, which are useful to know in order successfully to run this algorithm for a variety of molecules.
 
