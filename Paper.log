@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  5 JUN 2020 17:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  5 JUN 2020 20:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -286,13 +286,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <mask.png, id=17, 481.8pt x 345.29pt>
 File: mask.png Graphic file (type png)
 <use mask.png>
-Package pdftex.def Info: mask.png  used on input line 43.
+Package pdftex.def Info: mask.png  used on input line 45.
 (pdftex.def)             Requested size: 216.81pt x 155.37904pt.
- [3]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3]
 <spheres.jpg, id=25, 562.1pt x 421.575pt>
 File: spheres.jpg Graphic file (type jpg)
 <use spheres.jpg>
-Package pdftex.def Info: spheres.jpg  used on input line 60.
+Package pdftex.def Info: spheres.jpg  used on input line 63.
 (pdftex.def)             Requested size: 216.81pt x 162.60599pt.
 
 
@@ -302,73 +306,68 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <Figure8.jpg, id=36, 603.25375pt x 401.5pt>
 File: Figure8.jpg Graphic file (type jpg)
 <use Figure8.jpg>
-Package pdftex.def Info: Figure8.jpg  used on input line 106.
+Package pdftex.def Info: Figure8.jpg  used on input line 111.
 (pdftex.def)             Requested size: 216.81pt x 144.29483pt.
 <Figure2.jpg, id=37, 469.755pt x 455.7025pt>
 File: Figure2.jpg Graphic file (type jpg)
 <use Figure2.jpg>
-Package pdftex.def Info: Figure2.jpg  used on input line 113.
-(pdftex.def)             Requested size: 216.81pt x 210.32103pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+Package pdftex.def Info: Figure2.jpg  used on input line 118.
+(pdftex.def)             Requested size: 144.54pt x 140.21634pt.
 <Figure4.jpg, id=38, 720.6925pt x 305.14pt>
 File: Figure4.jpg Graphic file (type jpg)
 <use Figure4.jpg>
-Package pdftex.def Info: Figure4.jpg  used on input line 118.
-(pdftex.def)             Requested size: 216.81pt x 91.79413pt.
+Package pdftex.def Info: Figure4.jpg  used on input line 126.
+(pdftex.def)             Requested size: 289.07999pt x 122.39372pt.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 <Figure9.jpg, id=39, 680.5425pt x 415.5525pt>
 File: Figure9.jpg Graphic file (type jpg)
 <use Figure9.jpg>
-Package pdftex.def Info: Figure9.jpg  used on input line 126.
+Package pdftex.def Info: Figure9.jpg  used on input line 134.
 (pdftex.def)             Requested size: 216.81pt x 132.38982pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figure5.jpg, id=40, 963.6pt x 722.7pt>
+[6 <./Figure8.jpg> <./Figure2.jpg>]
+<Figure5.jpg, id=44, 963.6pt x 722.7pt>
 File: Figure5.jpg Graphic file (type jpg)
 <use Figure5.jpg>
-Package pdftex.def Info: Figure5.jpg  used on input line 133.
-(pdftex.def)             Requested size: 216.81pt x 162.60048pt.
+Package pdftex.def Info: Figure5.jpg  used on input line 141.
+(pdftex.def)             Requested size: 289.07999pt x 216.80064pt.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6 <./Figure8.jpg>] [7 <./Figure2.jpg> <./Figure4.jpg>] [8 <./Figure9.jpg> <./F
-igure5.jpg>]
+[7 <./Figure4.jpg> <./Figure9.jpg>] [8 <./Figure5.jpg>]
 <Figure6.jpg, id=52, 206.27063pt x 113.67468pt>
 File: Figure6.jpg Graphic file (type jpg)
 <use Figure6.jpg>
-Package pdftex.def Info: Figure6.jpg  used on input line 179.
+Package pdftex.def Info: Figure6.jpg  used on input line 189.
 (pdftex.def)             Requested size: 216.81pt x 119.48508pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[9] [10 <./Figure6.jpg>]
+ [9 <./Figure6.jpg>]
+[10]
 <Figure7.jpg, id=59, 207.77625pt x 163.3603pt>
 File: Figure7.jpg Graphic file (type jpg)
 <use Figure7.jpg>
-Package pdftex.def Info: Figure7.jpg  used on input line 224.
+Package pdftex.def Info: Figure7.jpg  used on input line 236.
 (pdftex.def)             Requested size: 216.81pt x 170.469pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[11] [12 <./Figure7.jpg>] [13]
-Overfull \hbox (63.33636pt too wide) detected at line 291
+[11] [12 <./Figure7.jpg>]
+Overfull \hbox (63.33636pt too wide) detected at line 307
 []
  []
 
 
-Overfull \hbox (30.0pt too wide) in paragraph at lines 291--291
+Overfull \hbox (30.0pt too wide) in paragraph at lines 307--307
 [] 
  []
 
-(./Paper.lof)
+[13] (./Paper.lof)
 \tf@lof=\write4
 \openout4 = `Paper.lof'.
 
@@ -376,7 +375,7 @@ Overfull \hbox (30.0pt too wide) in paragraph at lines 291--291
 Here is how much of TeX's memory you used:
  3249 strings out of 492616
  43613 string characters out of 6129482
- 125856 words of memory out of 5000000
+ 126856 words of memory out of 5000000
  7102 multiletter control sequences out of 15000+600000
  12423 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -398,7 +397,7 @@ pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
 .pfb>
-Output written on Paper.pdf (15 pages, 379092 bytes).
+Output written on Paper.pdf (15 pages, 378864 bytes).
 PDF statistics:
  128 PDF objects out of 1000 (max. 8388607)
  84 compressed objects within 1 object stream
