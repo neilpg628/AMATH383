@@ -2,11 +2,11 @@
 \contentsline {figure}{\numberline {2}{\ignorespaces Two Intersecting Spheres\relax }}{5}% 
 \contentsline {figure}{\numberline {3}{\ignorespaces $B_1$ is bound by a sphere. The radius of the solvent is the distance between the edge of the ball and the sphere.\relax }}{6}% 
 \contentsline {figure}{\numberline {4}{\ignorespaces Three balls in space bounded by three different spheres. Their centers are used for Delaunay Triangulation.\relax }}{7}% 
-\contentsline {figure}{\numberline {5}{\ignorespaces A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$[1]$\relax }}{7}% 
-\contentsline {figure}{\numberline {6}{\ignorespaces The dual complex ($K$) of the Delaunay Triangulation only includes those power cells that have a non-empty intersection.$[1]$\relax }}{7}% 
-\contentsline {figure}{\numberline {7}{\ignorespaces The star of $K$ and link of the star are shown.$[1]$\relax }}{8}% 
+\contentsline {figure}{\numberline {5}{\ignorespaces A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).\cite {Bryant}\relax }}{7}% 
+\contentsline {figure}{\numberline {6}{\ignorespaces The dual complex ($K$) of the Delaunay Triangulation only includes those power cells that have a non-empty intersection.\cite {Bryant}\relax }}{7}% 
+\contentsline {figure}{\numberline {7}{\ignorespaces The star of $K$ and link of the star are shown.\cite {Bryant}\relax }}{8}% 
 \contentsline {figure}{\numberline {8}{\ignorespaces Two intersecting spheres $S_i$ and $S_j$.\cite {Bryant}\relax }}{10}% 
-\contentsline {figure}{\numberline {9}{\ignorespaces Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j.[1]$\relax }}{12}% 
+\contentsline {figure}{\numberline {9}{\ignorespaces Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j$.\cite {Bryant}\relax }}{12}% 
 \contentsline {figure}{\numberline {10}{\ignorespaces Plot of Computation Time versus Residue Count (Power Method)\relax }}{14}% 
 \contentsline {figure}{\numberline {11}{\ignorespaces Plot of Computation Time versus Residue Count (Shrake-Rupley Method)\relax }}{14}% 
 \contentsline {figure}{\numberline {12}{\ignorespaces SASA Histograms for the Two Algorithms\relax }}{15}% 
