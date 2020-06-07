@@ -158,6 +158,7 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 \centerline{\includegraphics[width=2in]{Figure2}}
 \end{figure}
 
+%The authors make use of a power diagram for their model, which is another name for the structure of spheres shown in Figure 2. Just like we mentioned previously, the power diagram consists of power cells. [Repetitive]
 
 \begin{figure}[h!]
 \caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).\cite{Bryant}}
@@ -186,14 +187,14 @@ The collection of spheres, or the entire molecule, is known as a space-filling d
 \sigma_{ij} = \frac{length(P_i \cap P_j \cap bd F)}{length(S_{ij})}
 \end{equation}
 
-where bd $F$ means the boundary of $F$. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
+bd $F$ means the boundary of $F$. This equation shows that for the space-filling diagram of the two intersecting spheres, $\sigma_{ij}$ is the fraction of the exposed surface that's on the power cells of both of the spheres.
 Using the dual complex, we can further specify the equation for $\sigma_{ij}$ in terms of two intersecting circles, which will become useful later:
 
 \begin{equation}
 \sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})- \sum_{k,l}length(S^k_{ij} \cap S^l_{ij})}{2\pi\varrho_{ij}}
 \end{equation}
 
-This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are the interesction of $S_{ij}$ with two other spheres in the power diagram. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the right side term of equation 7, the first sum adds the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of the exposed surface area of $F$.
+This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are the interesction of $S_{ij}$ with two other spheres ($S_k$ and $S_l$) in the power diagram. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the right side term of equation 7, the first sum adds the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of the exposed surface area of $F$.
 
 $\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4\pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs from the unweighted area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan (1986). So for just one ball $B_i$:
 
@@ -201,7 +202,6 @@ $\sigma$ is related to the area of the ball, which for a ball with radius $\varr
 &A = 4\pi\sum \varrho_i^2\sigma_i
 &E = 4\pi\sum\alpha_i\varrho_i^2\sigma_i
 \end{align*}
-
 
 Another term, $\beta_{ijk}$, is also used, which is useful when considering the case of three intersecting spheres. When three spheres intersect at two points, there is a line segment passing through them that is represented as $B_{ijk}$. Just like for $\sigma_{ij}$, $\beta_{ijk}$ represents the fraction of points that belong to the edge of $F$ for these three spheres.
 \begin{equation}
@@ -260,7 +260,7 @@ Using this logic, we can find the same equation holds true if we consider the se
 &\zeta_j = \frac{1}{2}\left[\zeta_{ij}+\frac{\varrho_j^2-\varrho_i^2}{\zeta_{ij}}\right]
 \end{align*}
 
-Now we can find the area of both spheres. For two spheres, it makes sense that $A = A_i + A_j$. Recall the area equation stated in Section 3.3. For two balls we can say: $A = 4\pi\varrho^2\sum{\sigma_i} + 4\pi\varrho^2\sum{\sigma_j}$. We have already shown what $\sigma$ is, so we can plug it in and simplify the area equation:
+Now we can find the area of both spheres. For two spheres, it makes sense that $A = A_i + A_j$. Recall the area equation stated in Section 3.3. For two balls we can say: $A = 4\pi\sum{\varrho_i^2\sigma_i} + 4\pi\sum{\varrho_j^2\sigma_j}$. We have already shown what $\sigma$ is, so we can plug it in and simplify the area equation:
 \begin{align*}
 &4\pi\varrho_i^2\frac{\varrho_i + \zeta_i}{2\varrho_i} + 4\pi\varrho_j^2\frac{\varrho_j + \zeta_j}{2\varrho_j} \\
 &\text{After a few algebraic simplifications:} \\
@@ -272,9 +272,9 @@ Now we can find the area of both spheres. For two spheres, it makes sense that $
 \end{align*}
 
 \subsection{Distance Preserving Motion}
-In distance preserving motion, one sphere rotates about the other. Imagine three spheres interesting at two points, $p$ and $q$ (Figure 9). This time, $F$ is going to include all the points contained in all three spheres. It is assumed that if the spheres intersect at two points then one sphere contains the other two. In this case, it is $S_j$ that engulfs $S_i$ and $S_k$. The caps, or tops of the spheres, are considered. From a previous section, we know that $B_{ijk}$ is considered the line segment of three intersecting spheres. In this case, $B_{ijk}$ is the line segment containing $p$ and $q$. The caps $C_{ij} = B_i \cup S_j$ and $C_{kj} = B_k \cup S_j$ protrude from the surface of $S_j$. The parameters obtained from this diagram allows us to find the area similar to how we found it for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle. Essentially, the caps are rotating in place. It might be easy to think about how diameter of the caps can represent the height of this “rectangle” while the distance between the caps signifies its width.
+In distance preserving motion, one sphere rotates around the other. Imagine three spheres interesting at two points, $p$ and $q$ (Figure 9). This time, $F$ is going to include all the points contained in all three spheres. It is assumed that if the spheres intersect at two points then one sphere contains the other two. In this case, it is $S_j$ that engulfs $S_i$ and $S_k$. The caps, or tops of the spheres, are considered. From a previous section, we know that $B_{ijk}$ is considered the line segment of three intersecting spheres. In this case, $B_{ijk}$ is the line segment containing $p$ and $q$. The caps $C_{ij} = B_i \cup S_j$ and $C_{kj} = B_k \cup S_j$ protrude from the surface of $S_j$. The parameters obtained from this diagram allows us to find the area similar to how we found it for the direction preserving motion. This model says that as you move the two caps apart, keeping their centers in the same position, you will gain an area equal to that of a spherical rectangle. Essentially, the caps are rotating in place. It might be easy to think about how diameter of the caps can represent the height of this “rectangle” while the distance between the caps signifies its width.
 \begin{figure}[h!]
-\caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j$.\cite{Bryant}}
+\caption{Three intersecting spheres at two points: $S_i$, $S_k$ and $S_j.\lbrack1\rbrack$}
 \centerline{\includegraphics[width=3in]{Figure7}}
 \end{figure}
 
