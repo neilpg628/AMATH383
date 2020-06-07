@@ -342,7 +342,7 @@ To test the time cost of \textsc{alphamol} (the computational implementation of 
 \caption{Plot of Computation Time versus Residue Count (Shrake-Rupley Method)}
 \end{figure}
 
-We also plotted the distribution of the SASA values for each calculator, and although they don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, which is why it is incorporated into Rosetta today.
+We also plotted the distribution of the SASA values for each calculator, and although they don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, chiefly because of its consideration for internal cavities. This is why it is incorporated into Rosetta today.
 \begin{figure}
 \caption{SASA Histograms for the Two Algorithms}
 \centerline{\includegraphics[width=3in]{sasa}}
