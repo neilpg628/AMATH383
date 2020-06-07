@@ -1,5 +1,6 @@
 \documentclass{article}
-\usepackage{amssymb, amsfonts, amsmath, geometry, verbatim, caption}
+\usepackage{amssymb, amsfonts, amsmath, verbatim, caption}
+\usepackage{geometry}
 \geometry{letterpaper}
 \usepackage[parfill]{parskip}    		
 \usepackage{graphicx}
@@ -56,7 +57,7 @@ Calculating the solvent-exposed surface area (SASA) of large biomolecules is an 
 Accurately and quickly calculating the SASA of proteins has been a problem that people have been trying to solve since the 1980's. One reason for this is the fact that the effective potential for solvation can be written $W=W_{elec}+W_{np}$, where $W_{elec}$ represents the electrostatic contribution and $W_{np}$ represents the nonpolar contribution to this potential. The second term depends heavily on the SASA value of the polar atoms in the molecule, as polar atoms with a low SASA value (buried polars) should to make internal hydrogen bonds to preserve the protein's structure. One of the earliest ways of computing this value was by Richmond (1984). His method involved modeling atoms as spheres and computing SASA as an application of the Gauss-Bonnet Theorem. This method was the basis for many future SASA calculators that optimized for attributes like speed or numerical stability. Other methods didn't focus as much on exact values in the interest of speed. The Shrake-Rupley algorithm (optimized by Legrand and Merz as discussed below), breaks up the spherical surface of each atom into a set of dots, and uses the fraction of dots that are exposed as a proxy for the exposed surface area. This is the default SASA calculator in Rosetta, a software package developed at the UW that allows for the computational analysis and design of protein structures. 
 \subsection{Geometrical Representation of Atoms}
 While atoms are comprised of protons, neutrons, and electrons, electrons are what give them their properties. Electrons make up the volume of an atom, and are generally found near the nucleus. Because we don’t know for certain where electrons are in an atom, their positions are represented by orbitals, which give the probability of electrons being in a particular location. Orbitals can take on different shapes, generally resembling some type of dumbbell, but when they come together, they form a roughly spherical shape (DeCoste, Zumdahl p.551-557). This is why atoms are often mathematically modeled as spherical objects.
-\subsection{Shrake-Rupley Algorithm}
+\subsection{The Shrake-Rupley Algorithm}
 The Shrake-Rupley Algorithm (Shrake and Rupley, 1973) is the standard way of calculating SASA by approximating the surface as a discrete set of voxels instead of a continuous surface. This can lead to inaccuracies, but the gains in speed are usually worth it. The algorithm can also fail if the protein surface is not continuous (i.e. an internal cavity is present) or the atomic radii are too small. This algorithm, once optimized by Legrand and Merz (1993) became a standard SASA calculator. Comparing this algorithm with the analytic SASA calculator MSEED (Perrot et al.) in calculating the SASA of the protein BPTI showed Shrake-Rupley to be roughly six times faster than MSEED, a huge improvement. The method works by representing the surface of sphere $a_i$ by an array of $l$ points evenly distributed on the surface of a sphere of radius $r_i$. The exposed surface area of $a_i$ can be written as
 \begin{equation}
 A_i=4\pi r_i^2\frac{l_{exposed}}{l_{total}} 
@@ -80,6 +81,8 @@ To actually calculate $m_{iq}$, we first compute
 
 All points on $a_i$ within $d_i$ of the $P_{iq}$ are buried, and those bits in $m_{iq}$ are set to zero, with the rest set to 1. This string can be AND'ed with $b_i$ to produce a new $b_i$. This can be done for all spheres that intersect $a_i$ for each sphere in turn. The key insight that cuts down on the $nkl$ calculations is the fact that the $m_{iq}$ can be stored and retrieved later if the same string is ever needed. This is very likely to occur, because the $d_{iq}$ can be made independent of $r_i$ by removing the factor $r_i$. Then $d_{iq}=\sqrt{2(1-\cos\theta_{iq})}$. Now we can calculate $m_{iq}$ for the range of $d_{iq}$ from 0-2. Once we store these masks, we will have covered all possible overlaps between spheres because we have gone through all angles $\theta_{iq}$.
 This provides a method of calculating the SASA of the entire protein. We can simply look at every intersection with a given atom and lookup the appropriate mask (based on the angle $\theta_{iq}$. Then we scale it by the radius of the atom we are looking at. Then we can perform our AND operations and find the SASA for a given atom. Iterating over all atoms gives us our answer.
+
+A possible way to improve this method is to increase the number of dots on each atom $l$. Of course, in doing this you trade off time for accuracy. However that tradeoff is a fundamental one in numerically solving almost modeling problem.
 \subsection{Richmond's Algorithm and the Gauss-Bonnet Theorem}
 In a previous paper written by Richmond (1984), a different strategy is used to find the solvent exposed surface area of the atoms. He still represents the atoms as spheres with definite radius with centers at the atomic coordinates, but instead of using voxels, he made use of the Gauss-Bonnet theorem, a fundamental theorem in differential geometry which connects the topological properties of a manifold (specifically its Euler Characteristic) with its geometric properties (its curvature). A standard statement of the theorem is 
 
@@ -158,7 +161,7 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 %The authors make use of a power diagram for their model, which is another name for the structure of spheres shown in Figure 2. Just like we mentioned previously, the power diagram consists of power cells. [Repetitive]
 
 \begin{figure}[h!]
-\caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).$\lbrack1\rbrack$}
+\caption{A power diagram comprised of power cells (left) and its Delaunay Triangulation (right).\cite{Bryant}}
 \centerline{\includegraphics[width=4in]{Figure4}}
 \end{figure}
 
@@ -166,14 +169,14 @@ Given a collection of atoms, there will be many overlapping spheres in $\R^{3n}$
 In order to derive the SASA equations, we must define some additional terms. After constructing Delaunay Triangles from a set of molecules, the “star” and “link” of the alpha shape's subcomplex are defined. Each of the Delaunay triangles is a simplex. $K$ is defined as a dual complex, or subcomplex of the alpha shape.
 
 \begin{figure}[h!]
-\caption{The dual complex ($K$) of the Delaunay Triangulation only includes those power cells that have a non-empty intersection.$\lbrack1\rbrack$}
+\caption{The dual complex ($K$) of the Delaunay Triangulation only includes those power cells that have a non-empty intersection.\cite{Bryant}}
 \centerline{\includegraphics[width=3in]{Figure9}}
 \end{figure}
 
 As can be seen by Figure 6, $K$ is made up of multiple simplices. The star of $K$ is a set of triangles who share a vertex and outside boundary. The link of $K$, then, is all of the vertices and edges in the star (Figure 7).
 
 \begin{figure}[h!]
-\caption{The star of $K$ and link of the star are shown.$\lbrack1\rbrack$}
+\caption{The star of $K$ and link of the star are shown.\cite{Bryant}}
 \centerline{\includegraphics[width=3in]{Figure5}}
 \end{figure}
 
@@ -191,7 +194,7 @@ Using the dual complex, we can further specify the equation for $\sigma_{ij}$ in
 \sigma_{ij} = 1 - \frac{\sum_{k}length(S^k_{ij})- \sum_{k,l}length(S^k_{ij} \cap S^l_{ij})}{2\pi\varrho_{ij}}
 \end{equation}
 
-This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are the interesction of $S_{ij}$ with two other spheres in the power diagram. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the right side term of equation 7, the first sum adds the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of the exposed surface area of $F$.
+This equation is derived by looking at Edelsbrunner's (1995) paper. The same two spheres $S_i$ and $S_j$ intersect at $S_{ij}$. However this time, $S^k_{ij}$ and $S^l_{ij}$ are the interesction of $S_{ij}$ with two other spheres ($S_k$ and $S_l$) in the power diagram. Both  $S^k_{ij}$ and $S^l_{ij}$ minimize the power distance to $S_{ij}$. Looking at the right side term of equation 7, the first sum adds the portion of $S_{ij}$ coming into contact with $S_k$, while the second sum adds the portion of $S_{ij}$ coming into contact with both $S_k$ and $S_l$. Having this second sum ensures we don't underestimate the amount of unexposed area. Dividing the difference of these sums by the circumference of the circle gives the fraction of this unexposed area, so that subtracting this term from 1 gives the fraction of the exposed surface area of $F$.
 
 $\sigma$ is related to the area of the ball, which for a ball with radius $\varrho$ is $4\pi\varrho^2$. Because we only care about the exposed surface area, we need to multiply by $\sigma$, in order to only get the solvent-exposed surface area. We can also define a weighted area, which only differs from the unweighted area equation by the factor of some parameter $\alpha$, which represents some constant atomic solvation parameters that were predefined by Eisenberg and McLachlan (1986). So for just one ball $B_i$:
 
@@ -251,9 +254,9 @@ Using this logic, we can find the same equation holds true if we consider the se
 &\text{So we can state that:} \\
 &\varrho_i^2 - \varrho_j^2  = \zeta_{ij}(\zeta_i-\zeta_j) \\
 &\text{Now we can find what $\zeta_i$ and $\zeta_j$ really are} \\
-&\varrho_i^2 - \varrho_j^2)/\zeta_{ij} + \zeta_j = \zeta_i \\
+&(\varrho_i^2 - \varrho_j^2)/\zeta_{ij} + \zeta_j = \zeta_i \\
 &\text{We know that $\zeta_j = \zeta_{ij} - \zeta_i$, so just substitute this expression in:} \\
-&\zeta_i = \frac{1}{2}\left(\zeta_{ij}+\frac{\varrho_i^2-\varrho_j^2}{\zeta_{ij}}\right) \\
+&\zeta_i = \frac{1}{2}\left[\zeta_{ij}+\frac{\varrho_i^2-\varrho_j^2}{\zeta_{ij}}\right] \\
 &\text{A similar statement can be made for $\zeta_j$, following the steps we carried out above:} \\
 &\zeta_j = \frac{1}{2}\left[\zeta_{ij}+\frac{\varrho_j^2-\varrho_i^2}{\zeta_{ij}}\right]
 \end{align*}
@@ -340,14 +343,14 @@ To test the time cost of \textsc{alphamol} (the computational implementation of 
 \caption{Plot of Computation Time versus Residue Count (Shrake-Rupley Method)}
 \end{figure}
 
-We also plotted the distribution of the SASA values for each calculator, and while the don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, which is why it is incorporated into Rosetta today.
+We also plotted the distribution of the SASA values for each calculator, and although they don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, chiefly because of its consideration for internal cavities. This is why it is incorporated into Rosetta today.
 \begin{figure}
 \caption{SASA Histograms for the Two Algorithms}
 \centerline{\includegraphics[width=3in]{sasa}}
 \end{figure}
 
 \section{Conclusion}
-It can be seen that SASA is a critical quantity to be able to compute for the purposes of structural biology. On a per-atom basis, it is one metric that can be used to determine if an atom is making a hydrogen bond, and by extension if the structure is energetically favorable. For protein-protein interfaces, large SASA values at the interface usually mean the proteins are more likely to bind because there is a larger binding surface. Metrics like SASA are useful because they don't require your structure to look similar to any existing PDB in order to determine if the structure is likely to be stable. This is especially important in the field of protein engineering, where there might not be any structures to compare your PDB to, and thus having independent metrics is critical to filtering out possible \textit{de novo} protein designs from sequences that won't take on any definite conformation. Thus much time has been spent on applying mathematical and computational ideas to rigorously defining and calculating SASA, in this paper we have explored a few of the most prominent methods.
+It can be seen that SASA is a critical quantity to be able to compute for the purposes of structural biology. On a per-atom basis, it is one metric that can be used to determine if an atom is making a hydrogen bond, and by extension if the structure is energetically favorable. For protein-protein interfaces, large SASA values at the interface usually mean the proteins are more likely to bind because there is a larger binding surface. Metrics like SASA are useful because they don't require your structure to look similar to any existing PDB in order to determine if the structure is likely to be stable. This is especially important in the field of protein engineering, where there might not be any structures to compare your PDB to, and thus having independent metrics is critical to filtering out possible \textit{de novo} protein designs from sequences that won't take on any definite conformation. Thus much time has been spent on applying mathematical and computational ideas to rigorously defining and calculating SASA, and in this paper we have explored a few of the most prominent methods.
 
 \section{Glossary}
 \begin{align*}
@@ -377,9 +380,9 @@ List of PDB's used: \\
 1DC9, 5PC4, 1WDV, 2OXZ, 1P3B, 129L, 4FH1, 1S2B, 2R32, 1BWR,\\
 6MKL, 3CS1, 3PMD, 2O35, 3S9B, 3PFC, 2CA8, 2EBY, 1IIB, 1GAJ,\\
 1I9Q, 4LUP, 3RQ8, 1VHI, 5OIL, 6CW0, 2YM4, 2ZO1, 4KXO, 6G0M,\\
-5R2D, 2GNP, 6F65, 2CM8, 5OH3, 2W5L, 2VV9, 6CQS, 6DJA, 6D40
+5R2D, 2GNP, 6F65, 2CM8, 5OH3, 2W5L, 2VV9, 6CQS, 6DJA, 6D40.
 
-Python Code:
+PyRosetta Code:
 \lstinputlisting[language=Python]{sasa.py}
 
 \begin{thebibliography}{10}
