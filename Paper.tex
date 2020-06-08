@@ -103,7 +103,7 @@ The SASA of an atom with radius $\varrho_i$ lies on a sphere where $K=\frac{1}{\
 \end{figure}
 Thus if we know $k_g$ (the geodesic curvature) of the boundary of $M$ at all points, we can compute $A$. If $\partial M$ is piecewise smooth, then $\int_{\partial M} k_g ds$ is the sum of the integrals along the components of the boundary plus the sum of the angles by which the elements of the boundary turn at the corners. For the simple example of a geodesic triangle on a sphere of radius $\rho$, $\int_\gamma k_g ds=0$ where $\gamma$ is a piece of $\partial M$. Thus $\int_{\partial M} k_g ds=0+\sum (\pi-\alpha_i)$, where $\alpha_i$ are the interior angles of the triangle. Plugging this into $(5)$ gives $A=\rho^2(-\pi+\sum\alpha_i)$. This is the well known Girard's Theorem. 
 
-In our case, the boundaries of $M$ won't be piecewise geodesic, and thus calculating $\int_{\partial M} k_g ds$ will require knowledge of the circles of intersection between the spheres. With that data calculating $k_g$ simply requires some vector calculus$^1$.
+In our case, the boundaries of $M$ won't be piecewise geodesic, and thus calculating $\int_{\partial M} k_g ds$ will require knowledge of the circles of intersection between the spheres. With that data calculating $k_g$ simply requires some vector calculus.
 We can calculate the SASA of the entire protein this way, by adding up the contributions of the individual regions $M$ across all atoms.
 
 \section{The Power Diagram Model}
@@ -328,20 +328,20 @@ As explained above, one of the biggest assumptions made is by representing each 
 
 
 \section{Application of ALPHAMOL to Molecular Modeling}
-To test the time cost of \textsc{alphamol} (the computational implementation of the method described in $\S3$) versus the Shrake-Rupley Algorithm we took 100 PDB structures from the RCSB\cite{PDB} database (listed in the supplemental) with between 30 and 330 residues and directly calculated surface areas using PyRosetta\cite{Chaudhury}, a python wrapper for Rosetta that allowed us to write a script that computed SASA for 100 structures using these two methods. We measured the time to compute SASA for each PDB for each method, and plotted this data against residue count. It can be seen that the \textsc{alphamol} method is substantially slower than the Shrake-Rupley method and that the time cost of both increases roughly linearly with the size of the structure, though it is clear that \textsc{alphamol} incurs time penalties faster than Shrake-Rupley as the structure size increases.
+To test the time cost of \textsc{alphamol} (the computational implementation of the method described in $\S3$) versus the Shrake-Rupley Algorithm we took 100 PDB structures from the RCSB\cite{PDB} database (listed in the supplemental) with between 30 and 330 residues and directly calculated surface areas using PyRosetta\cite{Chaudhury}, a python wrapper for Rosetta that allowed us to write a script that computed SASA for 100 structures using these two methods. We measured the time to compute SASA for each PDB for each method, and plotted this data against residue count. It can be seen that the \textsc{alphamol} method is substantially slower than the Shrake-Rupley method and that the time cost of both increases roughly linearly with the size of the structure, though it is clear that \textsc{alphamol} incurs time penalties faster than Shrake-Rupley as the structure size increases. \textsc{alphamol} takes roughly 1000 $\mu$s per residue versus Shrake-Rupley's 200 $\mu$s. The 5x speedup for the latter algorithm makes it an attractive choice for structures without a lot of the internal complexity that makes \textsc{alphamol} useful.
 
 
-\begin{figure}
+\begin{figure}[h!]
 \centerline{\includegraphics[width=3in]{daltimes}}
 \caption{Plot of Computation Time versus Residue Count (Power Method)}
 \end{figure}
-\begin{figure}
+\begin{figure}[h!]
 \centerline{\includegraphics[width=3in]{voxtimes}}
 \caption{Plot of Computation Time versus Residue Count (Shrake-Rupley Method)}
 \end{figure}
 
 We also plotted the distribution of the SASA values for each calculator, and although they don't look too different in this example, more rigorous testing with a wider range of proteins has shown that \textsc{alphamol} gives far more accurate values than other algorithms, chiefly because of its consideration for internal cavities. This is why it is incorporated into Rosetta today.
-\begin{figure}
+\begin{figure}[h!]
 \caption{SASA Histograms for the Two Algorithms}
 \centerline{\includegraphics[width=3in]{sasa}}
 \end{figure}
@@ -368,16 +368,16 @@ It can be seen that SASA is a critical quantity to be able to compute for the pu
 
 \section{Supplemental Information}
 List of PDB's used: \\
-1W4H, 2FD7, 1I2U, 1HA8, 1RO3, 1FRE, 1AHL, 1B8W, 1B7I, 3UA6,\\
-1B7K, 1IVA, 1L6H, 1KTH, 2GQV, 2KXK, 1CDT, 1BF0, 1B7V, 4AEI,\\
-4BWS, 1UBQ, 1FGP, 1CPZ, 1B4R, 1CRE, 2BCB, 4ZK9, 1BCG, 1B3C,\\
-1G47, 1NEI, 1HYM, 1A7H, 1COU, 4W9A, 1A70, 1EMV, 1AVS, 1QYS,\\
-1BB8, 1HA6, 2HSH, 2ACY, 1THX, 2Z9H, 2CBM, 2APB, 2FLS, 1AIU,\\
-4DZN, 1SRR, 2GZV, 2XKH, 1RKI, 1BMG, 2MCT, 1FI5, 1WOU, 1DZO,\\
-1DC9, 5PC4, 1WDV, 2OXZ, 1P3B, 129L, 4FH1, 1S2B, 2R32, 1BWR,\\
-6MKL, 3CS1, 3PMD, 2O35, 3S9B, 3PFC, 2CA8, 2EBY, 1IIB, 1GAJ,\\
-1I9Q, 4LUP, 3RQ8, 1VHI, 5OIL, 6CW0, 2YM4, 2ZO1, 4KXO, 6G0M,\\
-5R2D, 2GNP, 6F65, 2CM8, 5OH3, 2W5L, 2VV9, 6CQS, 6DJA, 6D40.
+129L, 1A70, 1A7H, 1AHL, 1AIU, 1AVS, 1B3C, 1B4R, 1B7I, 1B7K,\\
+1B7V, 1B8W, 1BB8, 1BCG, 1BF0, 1BMG, 1BWR, 1CDT, 1COU, 1CPZ,\\
+1CRE, 1DC9, 1DZO, 1EMV, 1FGP, 1FI5, 1FRE, 1G47, 1GAJ, 1HA6,\\
+1HA8, 1HYM, 1I2U, 1I9Q, 1IIB, 1IVA, 1KTH, 1L6H, 1NEI, 1P3B,\\
+1QYS, 1RKI, 1RO3, 1S2B, 1SRR, 1THX, 1UBQ, 1VHI, 1W4H, 1WDV,\\
+1WOU, 2ACY, 2APB, 2BCB, 2CA8, 2CBM, 2CM8, 2EBY, 2FD7, 2FLS,\\
+2GNP, 2GQV, 2GZV, 2HSH, 2KXK, 2MCT, 2O35, 2OXZ, 2R32, 2VV9,\\
+2W5L, 2XKH, 2YM4, 2Z9H, 2ZO1, 3CS1, 3PFC, 3PMD, 3RQ8, 3S9B,\\
+3UA6, 4AEI, 4BWS, 4DZN, 4FH1, 4KXO, 4LUP, 4W9A, 4ZK9, 5OH3,\\
+5OIL, 5PC4, 5R2D, 6CQS, 6CW0, 6D40, 6DJA, 6F65, 6G0M, 6MKL.
 
 PyRosetta Code:
 \lstinputlisting[language=Python]{sasa.py}
