@@ -115,7 +115,7 @@ Our protein can be represented as a set of atom centers $S$ in $\R^3$ with their
 \begin{equation*}
 P_i=\{x\in\R^3\mid\pi_i(x)\leq\pi_j(x),\forall j\}
 \end{equation*}
-Each $P_i$ is convex, and together they cover all $\R^3$ without overlap. The dual of this power diagram is a weighted Delaunay Triangulation of $S$ into a set of simplices, or triangles and tetrahedrons. We can compute the surface area of these balls using Delaunay triangulation, which will help us in the later sections. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know how they are constructed from the atoms. 
+Each $P_i$ is convex, and together they cover all $\R^3$ without overlap. The dual of this power diagram, or alpha shape, is a weighted Delaunay Triangulation of $S$ into a set of simplices, or triangles and tetrahedrons. We can compute the surface area of these balls using Delaunay triangulation, which will help us in the later sections. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know how they are constructed from the atoms. 
 
 \begin{comment}
 To draw the Delaunay triangles, the centers of the balls are taken to be the vertices of the triangles. If any two circles have adjacent power cells, an edge will be drawn between them. Every three power cells with a common edge will make up a triangle and a tetrahedron will comprise four power shells with a common vertex. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know what the vertices of each triangle represent.
@@ -143,11 +143,11 @@ The term “Voronoi diagram” is often used to classify the partition of a plan
 To represent the entire state of the protein (with $n$ atoms) we use the $m=3n$ dimensional  vector \textbf{z}, where consider a set of balls $B_i$ defined by a center $z_i$ and a fixed radius $\varrho_i$ to be in some state \textbf{z} in $\R^{3n}$. Each ball $B_i$ is surrounded by a sphere $S_i$ in this state. It is stated that if any space in $\R^m$ can be approximated by a linear space ($\R$), it is possible to find its derivative. By considering this differentiable map f, which takes the object from $\R^m$ to$\R$, they use this reasoning to say that the derivative of this map is linear. Thus, the authors show that it can be represented by vectors known as \textbf{t} and \textbf{u}, both of which are in $\R^m$, where \textbf{t} is a some variable vector and \textbf{u} is a gradient vector that shows how it changes with \textbf{t}. So the derivative of f will map each \textbf{z} to its gradient, or direction vector. The paper considers a space of $\R^3$ to better represent atoms. It states that m = 3n (so the balls are in $\R^{3n}$), and i can be no less than n-1. So, for some \textbf{z} or $B_i$, the center of $B_i$($z_i$) is stated as $(textbf{z}_{3i+1},textbf{z}_{3i+2},textbf{z}_{3i+3})$. The radius of $B_i$ is noted to be $\varrho_i$.
 \end{comment}
 
-Consider a set of balls $B_i$ defined by a center $z_i$ and a fixed radius $\varrho_i$ to be our protein. To represent the entire state of the protein (with $n$ atoms) we use the $m=3n$ dimensional  vector $\textbf{z}\in\R^{3n}$ where $\lbrack{\bf z}_{3i+1}, {\bf z}_{3i+2}, {\bf z}_{3i+3}\rbrack^T=z_i$. Now we can define the weighted and unweighted surface areas $E,A:\R^{3m}\rightarrow\R$ as real multivariate functions from the state of the protein to a single value (the solvent exposed surface area). The weighted area will be described below. Here we will describe the gradients of these maps, written as $DE_{\bf z}$ and $DA_{\bf z}$ which would allow us to calculate SASAs for protein structures and approximate how the SASA changes as the atomic coordinates move. These derivatives map each point in $\R^m$ to a corresponding gradient vector that we call \textbf{u}.
+Consider a set of balls $B_i$ defined by a center $z_i$ and a fixed radius $\varrho_i$ to be our protein. To represent the entire state of the protein (with $n$ atoms) we use the $m=3n$ dimensional  vector $\textbf{z}\in\R^{3n}$ where $\lbrack{\bf z}_{3i+1}, {\bf z}_{3i+2}, {\bf z}_{3i+3}\rbrack^T=z_i$. Note that $0\le i \le n-1$. Now we can define the weighted and unweighted surface areas $E,A:\R^{3m}\rightarrow\R$ as real multivariate functions from the state of the protein to a single value (the solvent exposed surface area). The weighted area will be described below. Here we will describe the gradients of these maps, written as $DE_{\bf z}$ and $DA_{\bf z}$ which would allow us to calculate SASAs for protein structures and approximate how the SASA changes as the atomic coordinates move. These derivatives map each point in $\R^m$ to a corresponding gradient vector that we call \textbf{u}.
 
 
 \begin{figure}[h!]
-\caption{$B_1$ is bound by a sphere. The radius of the solvent is the distance between the edge of the ball and the sphere.}
+\caption{$B_1$ is bound by a sphere. We can think of the sphere as how much of the solvent can interact with the atom.}
 \centerline{\includegraphics[width=3in]{Figure8}}
 \end{figure}
 
@@ -211,7 +211,7 @@ A similar expression to $\sigma_{ij}$ is derived for $\beta_{ijk}$, using $B^l_{
 \begin{equation}
 \beta_{ijk} = 1 - \frac{\sum_{l}length(B^l_{ijk})}{length(B_{ijk})}
 \end{equation}
-In the right side term of equation 9, the sum adds up the length of the line segment that comes in contact with $S_l$ and divides that by the entire length of $B_{ijk}$ (which is $2\varrho_{ijk}$), giving the fraction of $F$ that is unexposed. By subtracting this term from 1, the fraction of solvent exposed area for the three intersecting spheres is found. We can think of the sphere as representing how much of the solvent can interact with the atom. 
+In the right side term of equation 9, the sum adds up the length of the line segment that comes in contact with $S_l$ and divides that by the entire length of $B_{ijk}$ (which is $2\varrho_{ijk}$), giving the fraction of $F$ that is unexposed. By subtracting this term from 1, the fraction of solvent exposed area for the three intersecting spheres is found.
 \begin{comment}
 The state \textbf{z} of each ball defines a center and a radius. As stated before, this paper considers that the weighted (E) and unweighted (A) areas are transformations from the space containing z ($\R^{3n}$) to $\R$. Their derivatives at a particular \textbf{z} are linear maps. In other words, the areas are represented by the map f and their derivatives the derivative of f at \textbf{z}.
 \end{comment}
@@ -319,7 +319,7 @@ Just like before, the weighted area derivative is basically the same as the unwe
 DE_z(\textbf{t}) = \sum_{i=0}^{n-1}\sum_{j\neq i}\left(\sigma_{ij}<e_{ij},t_i> + \sum_{k\neq i,j} \beta_{ijk}<e_{ijk},t_i>\right)
 \end{equation}
 
-These are the derivative equations that can then be tested on different molecules. It is important to note that there are cases where these equations will be discontinuous. We won't elaborate on these, but, for example, discontinuities can happen in a case where three spheres intersect at a circle. There are other cases of discontinuities, which will be useful in order successfully to run this algorithm for a variety of molecules.
+These are the derivative equations that can then be tested on different molecules. It is important to note that there are cases where these equations will be discontinuous. We won't elaborate on these, but, for example, discontinuities can happen in a case where three spheres intersect at a circle. There are other cases of discontinuities, which will be useful to know in order to successfully run this algorithm for a variety of molecules.
 
 \begin{comment}
 \subsection{Model Assumptions}
