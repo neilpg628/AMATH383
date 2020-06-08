@@ -13,6 +13,6 @@
 \contentsline {section}{\numberline {4}Application of ALPHAMOL to Molecular Modeling}{14}% 
 \contentsline {section}{\numberline {5}Conclusion}{14}% 
 \contentsline {section}{\numberline {6}Glossary}{16}% 
-\contentsline {section}{\numberline {7}Supplemental Information}{17}% 
+\contentsline {section}{\numberline {7}Supplemental Information}{16}% 
 \contentsline {section}{\numberline {8}References}{19}% 
 \contentsline {section}{List of Figures}{19}% 
