@@ -115,7 +115,7 @@ Our protein can be represented as a set of atom centers $S$ in $\R^3$ with their
 \begin{equation*}
 P_i=\{x\in\R^3\mid\pi_i(x)\leq\pi_j(x),\forall j\}
 \end{equation*}
-Each $P_i$ is convex, and together they cover all $\R^3$ without overlap. The dual of this power diagram, or alpha shape, is a weighted Delaunay Triangulation of $S$ into a set of simplices, or triangles and tetrahedrons. We can compute the surface area of these balls using Delaunay triangulation, which will help us in the later sections. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know how they are constructed from the atoms. 
+Each $P_i$ is convex, and together they cover all $\R^3$ without overlap. The dual of this power diagram is a weighted Delaunay Triangulation of $S$ into a set of simplices, or triangles and tetrahedrons. We can compute the surface area of these balls using Delaunay triangulation, which will help us in the later sections. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know how they are constructed from the atoms. 
 
 \begin{comment}
 To draw the Delaunay triangles, the centers of the balls are taken to be the vertices of the triangles. If any two circles have adjacent power cells, an edge will be drawn between them. Every three power cells with a common edge will make up a triangle and a tetrahedron will comprise four power shells with a common vertex. There are additional rules for constructing Delaunay triangles, but for the purposes of this paper, it is only necessary to know what the vertices of each triangle represent.
