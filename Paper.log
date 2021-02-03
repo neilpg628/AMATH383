@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  10 JUN 2020 08:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=latex 2019.5.8)  23 OCT 2020 13:37
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **Paper.tex
 (./Paper.tex
@@ -184,10 +183,10 @@ Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 99.
+Package graphics Info: Driver file: dvips.def on input line 99.
 
-(/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+(/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
 \Gin@req@height=\dimen127
 \Gin@req@width=\dimen128
@@ -235,9 +234,8 @@ Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Driver file: dvips.def on input line 225.
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
 Package xcolor Info: Model `RGB' extended on input line 1364.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
@@ -266,9 +264,9 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: dvips
 * paper: letterpaper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -299,50 +297,8 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count114
-\scratchdimen=\dimen133
-\scratchbox=\box31
-\nofMPsegments=\count115
-\nofMParguments=\count116
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count117
-\MPscratchDim=\dimen134
-\MPnumerator=\count118
-\makeMPintoPDFobject=\count119
-\everyMPtoPDFconversion=\toks28
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-))
-(/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-
-(/usr/local/texlive/2019/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\c@lstlisting=\count120
+\c@lstlisting=\count114
 LaTeX Font Info:    Try loading font information for U+msa on input line 50.
-
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
@@ -357,145 +313,33 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 [1
 
-{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+]
+
+LaTeX Warning: Citation `Bryant' on page 2 undefined on input line 54.
+
 [2]
-<mask.png, id=17, 481.8pt x 274.02374pt>
-File: mask.png Graphic file (type png)
-<use mask.png>
-Package pdftex.def Info: mask.png  used on input line 79.
-(pdftex.def)             Requested size: 216.81pt x 123.30954pt.
- [3]
-<spheres.jpg, id=25, 562.1pt x 421.575pt>
-File: spheres.jpg Graphic file (type jpg)
-<use spheres.jpg>
-Package pdftex.def Info: spheres.jpg  used on input line 102.
-(pdftex.def)             Requested size: 216.81pt x 162.60599pt.
 
+! LaTeX Error: File `mask' not found.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[4 <./mask.png>] [5 <./spheres.jpg>]
-<Figure8.jpg, id=36, 603.25375pt x 401.5pt>
-File: Figure8.jpg Graphic file (type jpg)
-<use Figure8.jpg>
-Package pdftex.def Info: Figure8.jpg  used on input line 151.
-(pdftex.def)             Requested size: 216.81pt x 144.29483pt.
-<Figure2.jpg, id=37, 469.755pt x 455.7025pt>
-File: Figure2.jpg Graphic file (type jpg)
-<use Figure2.jpg>
-Package pdftex.def Info: Figure2.jpg  used on input line 158.
-(pdftex.def)             Requested size: 144.54pt x 140.21634pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Figure4.jpg, id=38, 720.6925pt x 305.14pt>
-File: Figure4.jpg Graphic file (type jpg)
-<use Figure4.jpg>
-Package pdftex.def Info: Figure4.jpg  used on input line 164.
-(pdftex.def)             Requested size: 289.07999pt x 122.39372pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Figure9.jpg, id=39, 680.5425pt x 415.5525pt>
-File: Figure9.jpg Graphic file (type jpg)
-<use Figure9.jpg>
-Package pdftex.def Info: Figure9.jpg  used on input line 172.
-(pdftex.def)             Requested size: 216.81pt x 132.38982pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[6 <./Figure8.jpg>]
-<Figure5.jpg, id=44, 963.6pt x 722.7pt>
-File: Figure5.jpg Graphic file (type jpg)
-<use Figure5.jpg>
-Package pdftex.def Info: Figure5.jpg  used on input line 179.
-(pdftex.def)             Requested size: 216.81pt x 162.60048pt.
- [7 <./Figure2.jpg> <./Figure4.jpg> <./Figure9.jpg>]
-[8 <./Figure5.jpg>]
-<Figure6.jpg, id=52, 206.27063pt x 113.67468pt>
-File: Figure6.jpg Graphic file (type jpg)
-<use Figure6.jpg>
-Package pdftex.def Info: Figure6.jpg  used on input line 227.
-(pdftex.def)             Requested size: 216.81pt x 119.48508pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[9] [10 <./Figure6.jpg>]
-<Figure7.jpg, id=59, 207.77625pt x 163.3603pt>
-File: Figure7.jpg Graphic file (type jpg)
-<use Figure7.jpg>
-Package pdftex.def Info: Figure7.jpg  used on input line 274.
-(pdftex.def)             Requested size: 216.81pt x 170.469pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[11] [12 <./Figure7.jpg>] [13]
-<daltimes.png, id=71, 462.528pt x 346.896pt>
-File: daltimes.png Graphic file (type png)
-<use daltimes.png>
-Package pdftex.def Info: daltimes.png  used on input line 335.
-(pdftex.def)             Requested size: 216.81pt x 162.60709pt.
-<voxtimes.png, id=72, 462.528pt x 346.896pt>
-File: voxtimes.png Graphic file (type png)
-<use voxtimes.png>
-Package pdftex.def Info: voxtimes.png  used on input line 339.
-(pdftex.def)             Requested size: 216.81pt x 162.60709pt.
-<sasa.png, id=73, 462.528pt x 346.896pt>
-File: sasa.png Graphic file (type png)
-<use sasa.png>
-Package pdftex.def Info: sasa.png  used on input line 346.
-(pdftex.def)             Requested size: 216.81pt x 162.60709pt.
- [14 <./daltimes.png> <./voxtimes.png>]
-Overfull \hbox (61.39194pt too wide) detected at line 367
-[]
- []
-
-
-Overfull \hbox (30.0pt too wide) in paragraph at lines 367--367
-[] 
- []
-
-[15 <./sasa.png>]
-(/usr/local/texlive/2019/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2019/02/27 1.8b listings language file
-) (./sasa.py [16] [17]) [18] (./Paper.lof)
-\tf@lof=\write4
-\openout4 = `Paper.lof'.
-
- [19] (./Paper.aux) ) 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.79 ...terline{\includegraphics[width=3in]{mask}}
+                                                  
+? H
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+? X
+ 
 Here is how much of TeX's memory you used:
- 6787 strings out of 492616
- 94463 string characters out of 6129482
- 521571 words of memory out of 5000000
- 10596 multiletter control sequences out of 15000+600000
- 13105 words of font info for 51 fonts, out of 8000000 for 9000
+ 5697 strings out of 492617
+ 81054 string characters out of 6129508
+ 163646 words of memory out of 5000000
+ 9550 multiletter control sequences out of 15000+600000
+ 11804 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,13n,42p,1887b,1854s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17
-.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pf
-b></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
-r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
-/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/l
-ocal/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Paper.pdf (19 pages, 461518 bytes).
-PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 37i,10n,39p,1887b,274s stack positions out of 5000i,500n,10000p,200000b,80000s
+Output written on Paper.dvi (2 pages, 6080 bytes).
